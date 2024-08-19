@@ -7,7 +7,7 @@
                 continue</p>
 
             <div v-if="error"
-                class="error-message rounded-lg bg-red-light dark:text-red-dark text-white px-8 py-4 text-center mx-auto my-4 max-w-80">
+                class="error-message rounded-lg bg-red-light dark:text-red-dark text-white dark:text-white px-8 py-4 text-center mx-auto my-4 max-w-80">
                 {{ error }}
             </div>
 
@@ -15,41 +15,45 @@
                 <div class="relative space-y-2">
                     <label for="email" class="block text-gray-700 dark:text-gray-300 text-md font-regular">Email</label>
                     <div class="relative">
-                        <i class='bx bx-user bx-sm absolute pt-3 pl-3 text-blue-light dark:text-blue-dark'></i>
+                        <i class='bx bx-envelope bx-sm absolute pt-3 pl-3 text-blue-light dark:text-blue-dark'></i>
                         <input type="email" name="email" id="email" v-model="email" autocomplete="email" required
-                            class="w-full px-5 py-3 rounded-lg pl-10 font-thin bg-input placeholder-gray-700 dark:placeholder-gray-400"
+                            spellcheck="false"
+                            class="w-full py-3 rounded-lg pl-12 pr-4 font-thin bg-input placeholder-gray-700 dark:placeholder-gray-400"
                             placeholder="Enter your email" />
 
                     </div>
                 </div>
 
-                <div class="relative space-y-2 mb-12">
+                <div class="relative space-y-2">
                     <label for="password"
                         class="block text-gray-700 dark:text-gray-300 text-md font-regular">Password</label>
                     <div class="relative">
                         <i class='bx bx-lock-alt bx-sm absolute pt-3 pl-3 text-blue-light dark:text-blue-dark'></i>
 
                         <input type="password" name="password" id="password" v-model="password" required
-                            class="w-full px-5 py-3 rounded-lg pl-10 font-thin bg-input placeholder-gray-700 dark:placeholder-gray-400"
+                            spellcheck="false"
+                            class="w-full py-3 rounded-lg pl-12 pr-4 font-thin bg-input placeholder-gray-700 dark:placeholder-gray-400"
                             placeholder="Enter your password" />
                     </div>
                 </div>
-                
-                <a href="/users/reset-password"
-                    class="mt-4 text-blue-light dark:text-blue-dark hover:filter hover:brightness-125 font-regular rounded-lg transition duration-150 ease-in-out text-right">
-                    Forgot Password?
-                </a>
+
+                <div>
+                    <a href="/users/reset-password"
+                        class="text-blue-light dark:text-blue-dark hover:filter hover:brightness-125 font-regular rounded-lg">
+                        Forgot Password?
+                    </a>
+                </div>
 
                 <div class="flex items-center justify-center">
                     <button type="submit"
-                        class="bg-blue-light dark:bg-blue-dark hover:filter hover:brightness-125 text-white text-center font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-opacity-50 flex w-full flex items-center justify-center">
+                        class="bg-blue-light dark:bg-blue-dark hover:filter hover:brightness-125 text-white text-center font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-opacity-50 flex w-full flex items-center justify-center">
                         Login
                     </button>
                 </div>
 
                 <div class="flex items-center justify-between">
                     <span>Don't have an account?<a href="/users/register"
-                            class="text-blue-light dark:text-blue-dark hover:filter hover:brightness-125 font-semibold rounded-lg transition duration-150 ease-in-out">
+                            class="text-blue-light dark:text-blue-dark hover:filter hover:brightness-125 font-regular">
                             Register here
                         </a></span>
                 </div>
@@ -101,12 +105,3 @@ const handleSubmit = async () => {
 }
 </script>
 
-<style scoped>
-.relative {
-    position: relative;
-}
-
-input {
-    transition: border-color 0.2s ease, background-color 0.2s ease;
-}
-</style>

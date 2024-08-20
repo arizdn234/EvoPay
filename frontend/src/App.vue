@@ -1,6 +1,6 @@
 <template>
 	<div :class="{ 'dark': isDarkMode }">
-		<header class="fixed top-0 left-0 right-0 z-50 px-4 py-5 bg-white-light dark:bg-black-dark shadow-md">
+		<header style="background: rgba(5, 16, 37, 0.12); backdrop-filter: blur(12px);" class="fixed top-0 left-0 right-0 z-50 px-4 py-5 shadow-md">
 			<div class="container mx-auto flex justify-between items-center">
 				<!-- Logo -->
 				<div class="flex space-x-4">
@@ -67,31 +67,33 @@
 				v-if="isMenuOpen">
 
 				<RouterLink to="/users/homepage"
-						class="hover:text-white dark:hover:text-gray-100"
+						class="text-grey6-dark dark:text-gray-100"
 						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold" v-if="isLoggedIn">
 						Home
 				</RouterLink>
 
-				<RouterLink to="/" class="hover:text-white dark:hover:text-gray-100"
+				<RouterLink to="/" class="text-grey6-dark dark:text-gray-100"
 					active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold">
 					API Docs
 				</RouterLink>
 				
 				<!-- Login/Register links (for mobile) -->
 				<RouterLink to="/users/login"
-					class="w-full text-center hover:text-white dark:hover:text-gray-100"
+					class="w-full text-center text-grey6-dark dark:text-gray-100"
+					active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold"
 					v-if="!isLoggedIn">
 					Login
 				</RouterLink>
 				<RouterLink to="/users/register"
-					class="w-full text-center hover:text-white dark:hover:text-gray-100"
+					class="w-full text-center text-grey6-dark dark:text-gray-100"
+					active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold"
 					v-if="!isLoggedIn">
 					Register
 				</RouterLink>
 
 				<!-- Dark Mode Toggle (for mobile) -->
 				<button @click="toggleDarkMode"
-					class="text-white dark:text-gray-200 p-2 rounded-lg">
+					class="text-blue-light dark:text-blue-dark p-2 rounded-lg">
 					<i :class="isDarkMode ? 'bx bxs-sun' : 'bx bxs-moon'" class="icon-size"></i>
 				</button>
 

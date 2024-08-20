@@ -1,57 +1,63 @@
 <template>
-    <div class="register bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 max-w-md mx-auto mt-16">
-        <h1 class="text-3xl font-semibold mb-8 text-center text-gray-800 dark:text-gray-200">Register</h1>
-        <form @submit.prevent="handleSubmit" class="space-y-6">
-            <div class="relative space-y-2">
-                <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Email</label>
-                <div class="relative">
-                    <input type="email" v-model="email" name="email" id="email" autocomplete="email" required
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
-                        placeholder="Enter your email" />
-                    <i
-                        class="fas fa-envelope absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"></i>
-                </div>
-            </div>
+    <div style="min-height: 100vh; display: grid; place-items: center;">
+        <div class="register bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 mx-auto">
+            <h1 class="text-3xl font-semibold mb-2 text-center text-gray-800 dark:text-gray-200">Register</h1>
+            <p class="mb-4 px-2 mx-auto text-center text-grey3-dark dark:text-grey3-light max-w-96">Welcome to <span
+                    class="font-bold">EvoPay</span>! Create your account and join us today.
+                Fill in your details below to get started.</p>
 
-            <div class="relative space-y-2">
-                <label for="password"
-                    class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Password</label>
-                <div class="relative">
-                    <input type="password" v-model="password" name="password" id="password"
-                        autocomplete="current-password" required
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
-                        placeholder="Enter your password" />
-                    <i
-                        class="fa-solid fa-lock absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"></i>
-                </div>
-            </div>
-
-            <div class="relative space-y-2">
-                <label for="name" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Name</label>
-                <div class="relative">
-                    <input type="text" v-model="name" name="name" id="name" autocomplete="username" required
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
-                        placeholder="Enter your name" />
-                    <i
-                        class="fas fa-user absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"></i>
-                </div>
-            </div>
-
-            <div v-if="error" class="error-message text-red-500 text-center mt-4">
+            <div v-if="error"
+                class="error-message rounded-lg bg-red-light dark:text-red-dark text-white dark:text-white px-8 py-4 text-center mx-auto my-4 max-w-80">
                 {{ error }}
             </div>
 
-            <div class="flex items-center justify-center">
-                <button type="submit"
-                    class="mb-4 flex items-center justify-center w-full bg-indigo-700 dark:bg-indigo-600 hover:bg-indigo-400 dark:hover:bg-indigo-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-opacity-50 flex items-center">
-                    Register
-                </button>
-            </div>
-            <span>Already have an account?<a href="/users/login"
-                    class="text-indigo-700 dark:text-indigo-600 hover:text-indigo-400 dark:hover:text-indigo-400 font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out">
-                    Login here
-                </a></span>
-        </form>
+            <form @submit.prevent="handleSubmit" class="space-y-6">
+                <div class="relative space-y-2">
+                    <label for="email" class="block text-gray-700 dark:text-gray-300 text-md font-regular">Email</label>
+                    <div class="relative">
+                        <i class='bx bx-envelope bx-sm absolute pt-3 pl-3 text-blue-light dark:text-blue-dark'></i>
+                        <input type="email" v-model="email" name="email" id="email" autocomplete="email" required
+                            spellcheck="false"
+                            class="w-full py-3 rounded-lg pl-12 pr-4 font-thin bg-input placeholder-gray-700 dark:placeholder-gray-400"
+                            placeholder="Enter your email" />
+                    </div>
+                </div>
+
+                <div class="relative space-y-2">
+                    <label for="password"
+                        class="block text-gray-700 dark:text-gray-300 text-md font-regular">Password</label>
+                    <div class="relative">
+                        <i class='bx bx-lock-alt bx-sm absolute pt-3 pl-3 text-blue-light dark:text-blue-dark'></i>
+                        <input type="password" v-model="password" name="password" id="password"
+                            autocomplete="current-password" required spellcheck="false"
+                            class="w-full py-3 rounded-lg pl-12 pr-4 font-thin bg-input placeholder-gray-700 dark:placeholder-gray-400"
+                            placeholder="Enter your password" />
+                    </div>
+                </div>
+
+                <div class="relative space-y-2">
+                    <label for="name" class="block text-gray-700 dark:text-gray-300 text-md font-regular">Name</label>
+                    <div class="relative">
+                        <i class='bx bx-user bx-sm absolute pt-3 pl-3 text-blue-light dark:text-blue-dark'></i>
+                        <input type="text" v-model="name" name="name" id="name" autocomplete="username" required
+                            spellcheck="false"
+                            class="w-full py-3 rounded-lg pl-12 pr-4 font-thin bg-input placeholder-gray-700 dark:placeholder-gray-400"
+                            placeholder="Enter your name" />
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center">
+                    <button type="submit"
+                        class="bg-blue-light dark:bg-blue-dark hover:filter hover:brightness-125 text-white text-center font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-opacity-50 flex w-full flex items-center justify-center mb-3">
+                        Register
+                    </button>
+                </div>
+                <span>Already have an account?<a href="/users/login"
+                        class="text-blue-light dark:text-blue-dark hover:filter hover:brightness-125 font-regular">
+                        Login here
+                    </a></span>
+            </form>
+        </div>
     </div>
 </template>
 

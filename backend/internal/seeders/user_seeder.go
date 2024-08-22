@@ -76,7 +76,7 @@ func (us *UserSeeder) seedUsers() error {
 
 	// Define users with associated role IDs
 	users := []*models.User{
-		{Name: "Admin", Email: "admin@admin.com", Password: "adminpasS1", RoleID: roleMap["admin"]},
+		{Name: "Admin", Email: "admin@admin.com", Password: "adminpasS1", RoleID: roleMap["admin"], EmailVerified: true},
 		{Name: "Johnny Deep", Email: "jdeep557@gmail.com", Password: "Blabla2421", RoleID: roleMap["user"]},
 		{Name: "Tom Cruise", Email: "tcruise557@gmail.com", Password: "baDls31dw", RoleID: roleMap["user"]},
 		{Name: "Billie Elish", Email: "bilelish557@gmail.com", Password: "jup752sDdka", RoleID: roleMap["user"]},

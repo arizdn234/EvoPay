@@ -66,6 +66,9 @@ module.exports = {
         'secondary-dark': 'var(--text-secondary-dark)',
         'tertiary-dark': 'var(--text-tertiary-dark)',
         'quartenary-dark': 'var(--text-quartenary-dark)',
+
+        // input
+        'input': 'var(--input-light)',
       },
       fontFamily: {
         sfpro: ['SF Pro Text', 'sans-serif'],

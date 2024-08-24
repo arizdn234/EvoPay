@@ -1,5 +1,5 @@
 <template>
-	<div class="user-homepage p-5 max-w-4xl mx-auto">
+	<div class="user-homepage p-5 max-w-4xl mx-auto mt-16">
 		<h1 class="text-2xl font-bold mb-5">Hello, <span class="font-bold transition-all duration-300 ease-in-out cursor-pointer text-blue-700 hover:text-blue-900">{{ userName }}</span></h1>
 		<p class="mt-5 text-sm italic">Welcome to your homepage!</p>
 

@@ -1,5 +1,5 @@
 <template>
-	<div class="documentation p-5 max-w-4xl mx-auto">
+	<div class="documentation p-5 max-w-4xl mx-auto mt-16">
 		<h1 class="text-2xl font-bold mb-5">{{ info.service }} API Documentation</h1>
 		<p class="text-lg mb-5">Version: {{ info.version }}</p>
 

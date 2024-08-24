@@ -114,6 +114,9 @@
   --text-secondary-dark: rgba(235, 235, 245, 0.6);
   --text-tertiary-dark: rgba(235, 235, 245, 0.13);
   --text-quartenary-dark: rgba(235, 235, 245, 0.16);
+
+  /* input */
+  --input-light: rgba(120, 120, 128, 0.120);
 }
 
 /* Variabel Semantik */

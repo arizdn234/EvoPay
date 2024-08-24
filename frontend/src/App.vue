@@ -5,7 +5,7 @@
 				<!-- Logo -->
 				<div class="flex space-x-4">
 					<p
-						class="text-2xl cursor-pointer font-sans font-bold text-blue-light dark:text-blue-dark hover:text-cyan-light dark:hover:text-cyan-dark">
+						class="text-2xl cursor-pointer font-sans font-bold text-blue-light dark:text-blue-dark hover:filter hover:brightness-125">
 						EvoPay
 					</p>
 				</div>
@@ -22,26 +22,26 @@
 					:class="{ hidden: !isMenuOpen, 'block': isMenuOpen }">
 
 					<RouterLink to="/users/homepage"
-						class="text-grey6-dark dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-100"
+						class="text-grey6-dark dark:text-gray-200 hover:filter hover:brightness-125"
 						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold" v-if="isLoggedIn">
 						Home
 					</RouterLink>
 					
 					<RouterLink to="/"
-						class="text-grey6-dark dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-100"
+						class="text-grey6-dark dark:text-gray-200 hover:filter hover:brightness-125"
 						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold">
 						API Docs
 					</RouterLink>
 					
 					<!-- Login/Register links (shown when not logged in) -->
 					<RouterLink to="/users/login"
-						class="text-grey6-dark dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-100"
+						class="text-grey6-dark dark:text-gray-200 hover:filter hover:brightness-125"
 						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold"
 						v-if="!isLoggedIn">
 						Login
 					</RouterLink>
 					<RouterLink to="/users/register"
-						class="text-grey6-dark dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-100"
+						class="text-grey6-dark dark:text-gray-200 hover:filter hover:brightness-125"
 						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold"
 						v-if="!isLoggedIn">
 						Register
@@ -55,7 +55,7 @@
 
 					<!-- Logout (shown when logged in) -->
 					<button @click="handleLogout"
-						class="text-white py-2 px-4 rounded-lg bg-rose-600 hover:bg-rose-500 dark:hover:bg-rose-500"
+						class="text-white py-2 px-4 rounded-lg bg-red-light hover:bg-red-dark dark:hover:bg-rose-500"
 						v-if="isLoggedIn">
 						Logout
 					</button>

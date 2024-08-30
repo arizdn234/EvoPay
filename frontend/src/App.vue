@@ -20,6 +20,13 @@
 				<!-- Navigation Links (hidden on mobile) -->
 				<nav class="hidden md:flex items-center space-x-4"
 					:class="{ hidden: !isMenuOpen, 'block': isMenuOpen }">
+
+					<RouterLink to="/users/homepage"
+						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold" v-if="isLoggedIn">
+						Home
+					</RouterLink>
+					
 					<RouterLink to="/"
 						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
 						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
@@ -58,10 +65,18 @@
 			<!-- Mobile Navigation Links (shown when menu is open) -->
 			<div class="md:hidden bg-gray-800 dark:bg-gray-900 flex flex-col items-center space-y-4 py-4"
 				v-if="isMenuOpen">
+
+				<RouterLink to="/users/homepage"
+						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold" v-if="isLoggedIn">
+						Home
+				</RouterLink>
+
 				<RouterLink to="/" class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
 					active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
 					API Docs
 				</RouterLink>
+				
 				<!-- Login/Register links (for mobile) -->
 				<RouterLink to="/users/login"
 					class="w-full text-center text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"

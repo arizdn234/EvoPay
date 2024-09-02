@@ -14,13 +14,13 @@
 				<div class="flex items-center space-x-4">
 					<!-- Show Login and Register only if the user is not logged in -->
 					<RouterLink to="/users/login"
-						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+						class="w-16 text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
 						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold"
 						v-if="!isLoggedIn">
 						Login
 					</RouterLink>
 					<RouterLink to="/users/register"
-						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+						class="w-16 text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
 						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold"
 						v-if="!isLoggedIn">
 						Register
@@ -34,7 +34,7 @@
 
 					<!-- Show Logout only if the user is logged in -->
 					<button @click="handleLogout"
-						class="text-white p-2 rounded-lg bg-rose-600 hover:bg-rose-500 dark:hover:bg-rose-500 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-1 focus:ring-rose-500 dark:focus:ring-rose-400"
+						class="text-white py-2 px-4 rounded-lg bg-rose-600 hover:bg-rose-500 dark:hover:bg-rose-500 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-1 focus:ring-rose-500 dark:focus:ring-rose-400"
 						v-if="isLoggedIn">
 						Logout
 					</button>
@@ -60,7 +60,7 @@ const router = useRouter();
 
 // Theme and login state
 const isDarkMode = ref(false);
-const isLoggedIn = ref(false);  // Track login state based on cookie
+const isLoggedIn = ref(false);
 
 // Dark Mode Toggle
 const toggleDarkMode = () => {

@@ -48,40 +48,45 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'; // Import computed here
+import { ref, onMounted, computed } from 'vue';
 import axios from '../axios';
 
-const info = ref({});
-const currentView = ref('user'); // Default to user endpoints
+const info = ref({
+    user_routes: [],
+    admin_routes: [],
+    note: '',
+    version: '',
+    service: ''
+});
+const currentView = ref('user');
 
 const fetchApiInfo = async () => {
-	try {
-		const response = await axios.get('/'); // Adjust the URL based on your API endpoint
-		info.value = response.data;
+    try {
+        const response = await axios.get('/');
 
-		// Initialize user_routes and admin_routes from the fetched data
-		info.value.user_routes = response.data.routes.filter(route => !route.note); // Assuming user routes have no 'note'
-		info.value.admin_routes = response.data.routes.filter(route => route.note); // Assuming admin routes have a 'note'
-	} catch (error) {
-		console.error('Error fetching documentation');
-	}
+        info.value = response.data; 
+        if (response.data.user_routes) {
+            info.value.user_routes = response.data.user_routes; // Set user routes directly
+        }
+
+        if (response.data.admin_routes) {
+            info.value.admin_routes = response.data.admin_routes; // Set admin routes directly
+        }
+
+    } catch (error) {
+        console.error('Error fetching documentation:', error);
+    }
 };
 
 // Toggle function to switch between user and admin routes
 const toggleRoutes = (view) => {
-	currentView.value = view;
+    currentView.value = view;
 };
 
 // Use computed to dynamically determine the routes to display
 const currentRoutes = computed(() => {
-	return currentView.value === 'admin' ? info.value.admin_routes : info.value.user_routes;
+    return currentView.value === 'admin' ? info.value.admin_routes : info.value.user_routes;
 });
 
 onMounted(fetchApiInfo);
 </script>
-
-<style scoped>
-.table-container {
-	overflow-x: auto;
-}
-</style>

@@ -25,6 +25,24 @@ func NewUserHandler(ur *repositories.UserRepository) *UserHandler {
 	return &UserHandler{UserRepository: ur}
 }
 
+func (uh *UserHandler) GetMe(c *fiber.Ctx) error {
+	// Retrieve user ID from the context set by the middleware
+	userID, err := utils.GetUserIDFromContext(c)
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "unauthorized"})
+	}
+
+	// Fetch user details from the database
+	user, err := uh.UserRepository.FindByID(uint(userID))
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	// Return the user information, excluding sensitive data like password
+	user.Password = ""
+	return c.Status(fiber.StatusOK).JSON(user)
+}
+
 func (uh *UserHandler) CreateUser(c *fiber.Ctx) error {
 	var user models.User
 	if err := c.BodyParser(&user); err != nil {

@@ -55,6 +55,7 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	userRoute.Use(middleware.RequireAuth())
 
 	// User routes that require authentication
+	userRoute.Get("/me", userHandler.GetMe)
 	userRoute.Get("", userHandler.GetAllUsers)       // Get all users
 	userRoute.Get("/:id", userHandler.GetUserByID)   // Get user by ID
 	userRoute.Post("", userHandler.CreateUser)       // Create a new user

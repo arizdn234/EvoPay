@@ -2,8 +2,11 @@ package repositories
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
+	"fmt"
 	"strconv"
+	"time"
 
 	"github.com/arizdn234/EvoPay/internal/models"
 	"github.com/go-redis/redis/v8"
@@ -38,18 +41,29 @@ func (r *balanceRepository) Create(balance *models.Balance) error {
 }
 
 func (r *balanceRepository) FindByUserID(userID uint) (*models.Balance, error) {
-	if cachedBalance, err := r.Cache.Get(r.Ctx, getBalanceCacheKey(userID)).Result(); err == nil {
-		return &models.Balance{UserID: userID, CurrentBalance: parseFloat(cachedBalance)}, nil
+	cachedBalance, err := r.Cache.Get(r.Ctx, getBalanceCacheKey(userID)).Result()
+	if err == nil {
+		var balance models.Balance
+		if err := json.Unmarshal([]byte(cachedBalance), &balance); err == nil {
+			return &balance, nil
+		} else {
+			fmt.Printf("Error unmarshalling cached balance: %v\n", err)
+		}
 	}
 
-	// If not in cache, fetch from DB
 	var balance models.Balance
-	err := r.DB.Where("user_id = ?", userID).First(&balance).Error
+	err = r.DB.Where("user_id = ?", userID).First(&balance).Error
 	if err != nil {
 		return nil, err
 	}
 
-	r.Cache.Set(r.Ctx, getBalanceCacheKey(userID), balance.CurrentBalance, 0)
+	balanceJSON, err := json.Marshal(balance)
+	if err == nil {
+		r.Cache.Set(r.Ctx, getBalanceCacheKey(userID), balanceJSON, 5*time.Minute)
+	} else {
+		fmt.Printf("Error marshalling balance for cache: %v\n", err)
+	}
+
 	return &balance, nil
 }
 
@@ -91,7 +105,7 @@ func getBalanceCacheKey(userID uint) string {
 }
 
 // Helper function to parse float from string
-func parseFloat(s string) float64 {
-	val, _ := strconv.ParseFloat(s, 64)
-	return val
-}
+// func parseFloat(s string) float64 {
+// 	val, _ := strconv.ParseFloat(s, 64)
+// 	return val
+// }

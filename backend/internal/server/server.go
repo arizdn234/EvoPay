@@ -73,7 +73,7 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	// =============== Balance routes ================
 	balanceRoute := app.Group("/balances")
 	balanceRoute.Use(middleware.RequireAuth())
-	balanceRoute.Post("/", balanceHandler.CreateBalance)                       // Create a balance
+	// balanceRoute.Post("/", balanceHandler.CreateBalance)                       // Create a balance
 	balanceRoute.Get("/:userID", balanceHandler.GetBalanceByUserID)            // Get balance by user ID
 	balanceRoute.Put("/:userID", balanceHandler.UpdateBalance)                 // Update a balance
 	balanceRoute.Post("/:userID/add", balanceHandler.AddToBalance)             // Add to a balance

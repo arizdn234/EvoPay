@@ -1,0 +1,53 @@
+# Node modules untuk frontend
+/frontend/node_modules
+/frontend/dist
+
+# Dependency dan cache Go
+/go/pkg
+/go/bin
+
+# Binary hasil build Go
+/backend/main
+
+# Direktori vendor Go (jika menggunakan vendor mode)
+backend/vendor/
+
+# File yang dihasilkan oleh Docker
+docker-compose.override.yml
+docker-compose.yml
+docker/*.env
+
+# Direktori log dan debug
+logs/
+*.log
+
+# File yang dihasilkan oleh editor atau sistem operasi
+*.DS_Store
+*.vscode/
+.idea/
+*.swp
+
+# Direktori data yang persisten
+db_data/
+redis_data/
+
+# File backup dan cache
+*.bak
+*.cache
+*.tmp
+
+# File konfigurasi environment
+.env
+.env.*
+
+# Docker images dan container
+**/docker-compose.yaml
+docker-compose.yml
+docker-compose.override.yml
+dockerfile
+
+# Konfigurasi build
+*.out
+*.exe
+*.so
+*.dll

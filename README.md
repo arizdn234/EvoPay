@@ -9,7 +9,7 @@
    - [X] Use Docker Compose to manage services such as the database and cache alongside the main application.
 
 2. **Core Features:**
-   - [ ] Implement authentication using OAuth or JWT (JSON Web Token).
+   - [X] Implement authentication using OAuth or JWT (JSON Web Token).
    - [ ] Develop email verification and password recovery features with token-based authentication.
 
 3. **Key Features:**

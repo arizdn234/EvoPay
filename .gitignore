@@ -38,7 +38,6 @@ redis_data/
 
 # File konfigurasi environment
 .env
-.env.*
 
 # Docker images dan container
 **/docker-compose.yaml

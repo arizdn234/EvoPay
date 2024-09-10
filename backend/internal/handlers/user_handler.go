@@ -299,3 +299,90 @@ func (uh *UserHandler) validateUser(user models.User) error {
 
 	return nil
 }
+
+func (uh *UserHandler) SendVerificationEmail(c *fiber.Ctx) error {
+	email := c.FormValue("email")
+
+	user, err := uh.UserRepository.FindByEmail(email)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "User not found"})
+	}
+
+	token := utils.GenerateRandomToken(32)
+	user.VerificationToken = token
+
+	if err := uh.UserRepository.Update(user); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to save verification token"})
+	}
+
+	if err := utils.SendEmail(user.Email, "Verify Your Email", "Click on the following link to verify your email: http://localhost:3000/verify-email?token="+token); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to send verification email"})
+	}
+
+	return c.JSON(fiber.Map{"message": "Verification email sent"})
+}
+
+func (uh *UserHandler) VerifyEmail(c *fiber.Ctx) error {
+	token := c.Query("token")
+
+	user, err := uh.UserRepository.FindUserByVerificationToken(token)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Invalid token"})
+	}
+
+	user.EmailVerified = true
+	user.VerificationToken = ""
+
+	if err := uh.UserRepository.Update(user); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to verify email"})
+	}
+
+	return c.JSON(fiber.Map{"message": "Email successfully verified"})
+}
+
+func (uh *UserHandler) SendResetPasswordEmail(c *fiber.Ctx) error {
+	email := c.FormValue("email")
+
+	user, err := uh.UserRepository.FindByEmail(email)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "User not found"})
+	}
+
+	token := utils.GenerateRandomToken(32)
+	user.ResetToken = token
+	user.ResetTokenExpiry = time.Now().Add(1 * time.Hour)
+
+	if err := uh.UserRepository.Update(user); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to save reset token"})
+	}
+
+	if err := utils.SendEmail(user.Email, "Reset Your Password", "Click on the following link to reset your password: http://localhost:3000/reset-password?token="+token); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to send reset password email"})
+	}
+
+	return c.JSON(fiber.Map{"message": "Reset password email sent"})
+}
+
+func (uh *UserHandler) ResetPassword(c *fiber.Ctx) error {
+	token := c.Query("token")
+	newPassword := c.FormValue("password")
+
+	user, err := uh.UserRepository.FindUserByResetToken(token)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Invalid token"})
+	}
+
+	if time.Now().After(user.ResetTokenExpiry) {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Token expired"})
+	}
+
+	user.Password, _ = utils.HashPassword(newPassword)
+	user.ResetToken = ""
+	user.ResetTokenExpiry = time.Time{}
+
+	if err := uh.UserRepository.Update(user); err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to reset password"})
+	}
+
+	return c.JSON(fiber.Map{"message": "Password successfully reset"})
+}

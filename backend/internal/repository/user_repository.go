@@ -79,6 +79,22 @@ func (ur *UserRepository) FindRoleByName(name string) (*models.Role, error) {
 	return &role, nil
 }
 
+func (ur *UserRepository) FindUserByVerificationToken(token string) (*models.User, error) {
+	var user models.User
+	if err := ur.DB.Where("verification_token = ?", token).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (ur *UserRepository) FindUserByResetToken(token string) (*models.User, error) {
+	var user models.User
+	if err := ur.DB.Where("reset_token = ?", token).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
 func Migrate(db *gorm.DB) error {
 	// Migrate User table
 	if err := db.AutoMigrate(&models.User{}); err != nil {

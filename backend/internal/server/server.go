@@ -22,6 +22,12 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	userRoute.Post("/register", userHandler.UserRegister)
 	userRoute.Get("/logout", userHandler.UserLogout)
 
+	// Email verification and password recovery routes
+	userRoute.Post("/send-verification-email", userHandler.SendVerificationEmail)
+	userRoute.Get("/verify-email", userHandler.VerifyEmail)
+	userRoute.Post("/send-reset-password-email", userHandler.SendResetPasswordEmail)
+	userRoute.Post("/reset-password", userHandler.ResetPassword)
+
 	// Use middleware for authentication
 	userRoute.Use(middleware.RequireAuth())
 	userRoute.Use(middleware.RequireAdminRole())

@@ -35,6 +35,14 @@ func main() {
 	// Initialize Fiber app
 	app := fiber.New()
 
+	// Enable CORS middleware
+	app.Use(func(c *fiber.Ctx) error {
+		c.Set("Access-Control-Allow-Origin", "*")
+		c.Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		c.Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+		return c.Next()
+	})
+
 	// Get the port from the environment variables
 	port := os.Getenv("PORT")
 	if port == "" {

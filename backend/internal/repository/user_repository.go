@@ -196,6 +196,10 @@ func (ur *UserRepository) seedUsers() error {
 		}
 		user.Password = hashedPassword
 
+		user.ResetToken = nil
+		user.ResetTokenExpiry = nil
+		user.VerificationToken = nil
+
 		// Create the user
 		if err := ur.DB.Create(user).Error; err != nil {
 			return err

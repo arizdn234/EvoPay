@@ -309,7 +309,7 @@ func (uh *UserHandler) SendVerificationEmail(c *fiber.Ctx) error {
 	}
 
 	token := utils.GenerateRandomToken(32)
-	user.VerificationToken = token
+	user.VerificationToken = &token
 
 	if err := uh.UserRepository.Update(user); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to save verification token"})
@@ -331,7 +331,7 @@ func (uh *UserHandler) VerifyEmail(c *fiber.Ctx) error {
 	}
 
 	user.EmailVerified = true
-	user.VerificationToken = ""
+	user.VerificationToken = nil
 
 	if err := uh.UserRepository.Update(user); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to verify email"})
@@ -349,8 +349,9 @@ func (uh *UserHandler) SendResetPasswordEmail(c *fiber.Ctx) error {
 	}
 
 	token := utils.GenerateRandomToken(32)
-	user.ResetToken = token
-	user.ResetTokenExpiry = time.Now().Add(1 * time.Hour)
+	expiryTime := time.Now().Add(1 * time.Hour)
+	user.ResetToken = &token
+	user.ResetTokenExpiry = &expiryTime
 
 	if err := uh.UserRepository.Update(user); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to save reset token"})
@@ -372,13 +373,13 @@ func (uh *UserHandler) ResetPassword(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Invalid token"})
 	}
 
-	if time.Now().After(user.ResetTokenExpiry) {
+	if user.ResetTokenExpiry != nil && time.Now().After(*user.ResetTokenExpiry) {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Token expired"})
 	}
 
 	user.Password, _ = utils.HashPassword(newPassword)
-	user.ResetToken = ""
-	user.ResetTokenExpiry = time.Time{}
+	user.ResetToken = nil
+	user.ResetTokenExpiry = nil
 
 	if err := uh.UserRepository.Update(user); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to reset password"})

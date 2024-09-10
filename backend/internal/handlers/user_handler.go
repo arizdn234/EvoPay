@@ -26,22 +26,85 @@ func NewUserHandler(ur *repository.UserRepository) *UserHandler {
 }
 
 func (uh *UserHandler) Welcome(c *fiber.Ctx) error {
-	info := `
-	━─━────༺EvoPay༻────━─━
-	Here is the EvoPay backend service documentation:
+	info := map[string]interface{}{
+		"service": "EvoPay",
+		"version": "1.0",
+		"routes": []map[string]string{
+			{
+				"method":      "GET",
+				"path":        "/",
+				"description": "Welcome & backend routes documentation",
+			},
+			{
+				"method":      "POST",
+				"path":        "/users/login",
+				"description": "User login",
+			},
+			{
+				"method":      "POST",
+				"path":        "/users/register",
+				"description": "Register new user",
+			},
+			{
+				"method":      "GET",
+				"path":        "/users/logout",
+				"description": "User logout",
+			},
+			{
+				"method":      "POST",
+				"path":        "/users/send-verification-email",
+				"description": "Send verification email",
+			},
+			{
+				"method":      "GET",
+				"path":        "/users/verify-email",
+				"description": "Verify user email",
+			},
+			{
+				"method":      "POST",
+				"path":        "/users/send-reset-password-email",
+				"description": "Send password reset email",
+			},
+			{
+				"method":      "POST",
+				"path":        "/users/reset-password",
+				"description": "Reset user password",
+			},
+			{
+				"method":      "GET",
+				"path":        "/users",
+				"description": "Get all users",
+				"note":        "Requires authentication",
+			},
+			{
+				"method":      "POST",
+				"path":        "/users",
+				"description": "Create a new user",
+				"note":        "Requires authentication",
+			},
+			{
+				"method":      "GET",
+				"path":        "/users/{id}",
+				"description": "Get user by ID",
+				"note":        "Requires authentication",
+			},
+			{
+				"method":      "PUT",
+				"path":        "/users/{id}",
+				"description": "Update user by ID",
+				"note":        "Requires authentication",
+			},
+			{
+				"method":      "DELETE",
+				"path":        "/users/{id}",
+				"description": "Delete user by ID",
+				"note":        "Requires authentication",
+			},
+		},
+		"note": "Routes marked with 'note' require valid user credentials.",
+	}
 
-	Routes Available:
-	- GET    /                  : Welcome & backend routes documentation
-	- GET    /users             : Get all users
-	- POST   /users             : Create a new user (using create method)
-	- GET    /users/{id}        : Get user by ID
-	- PUT    /users/{id}        : Update user by ID
-	- DELETE /users/{id}        : Delete user by ID
-	- POST   /login             : User login
-	- POST   /register          : Register new user (using register method)
-	`
-
-	return c.SendString(info)
+	return c.JSON(info)
 }
 
 func (uh *UserHandler) CreateUser(c *fiber.Ctx) error {

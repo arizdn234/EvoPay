@@ -7,7 +7,7 @@ import (
 	"github.com/arizdn234/EvoPay/internal/config"
 	"github.com/arizdn234/EvoPay/internal/db"
 	"github.com/arizdn234/EvoPay/internal/redis"
-	"github.com/arizdn234/EvoPay/internal/repository"
+	"github.com/arizdn234/EvoPay/internal/repositories"
 	"github.com/arizdn234/EvoPay/internal/server"
 	"github.com/gofiber/fiber/v2"
 )
@@ -23,12 +23,12 @@ func main() {
 	db.InitDB()
 
 	// Migrate
-	if err := repository.Migrate(db.DB); err != nil {
+	if err := repositories.Migrate(db.DB); err != nil {
 		log.Fatalf("Failed to migrate the table: %v", err)
 	}
 
 	// Seed data
-	if err := repository.NewUserRepository(db.DB).Seed(); err != nil {
+	if err := repositories.NewUserRepository(db.DB).Seed(); err != nil {
 		log.Fatalf("Failed to seed data: %v", err)
 	}
 

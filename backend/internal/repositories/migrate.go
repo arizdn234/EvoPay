@@ -26,5 +26,10 @@ func Migrate(db *gorm.DB) error {
 		return err
 	}
 
+	// Migrate Transaction table
+	if err := db.AutoMigrate(&models.Transaction{}); err != nil {
+		return err
+	}
+
 	return nil
 }

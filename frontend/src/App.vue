@@ -8,6 +8,8 @@ import { RouterLink, RouterView } from 'vue-router'
       <div class="wrapper">
         <nav>
           <RouterLink to="/">API Docs</RouterLink>
+          <RouterLink to="/users/login">Login</RouterLink>
+          <RouterLink to="/users/register">Register</RouterLink>
         </nav>
       </div>
     </header>
@@ -18,13 +20,19 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style scoped>
+/* Resetting default styles for 'a' tags */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .app-container {
   display: flex;
   flex-direction: column;
 }
 
 header {
-  background: #505050; 
+  background: #505050;
   line-height: 1.5;
   padding: 0 1rem;
   display: flex;
@@ -41,7 +49,7 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: white;
 }
 
 nav a.router-link-exact-active:hover {

@@ -11,17 +11,17 @@ import (
 	"github.com/arizdn234/EvoPay/internal/middleware"
 	"github.com/arizdn234/EvoPay/internal/models"
 	"github.com/arizdn234/EvoPay/internal/redis"
-	"github.com/arizdn234/EvoPay/internal/repository"
+	"github.com/arizdn234/EvoPay/internal/repositories"
 	"github.com/arizdn234/EvoPay/utils"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 type UserHandler struct {
-	UserRepository *repository.UserRepository
+	UserRepository *repositories.UserRepository
 }
 
-func NewUserHandler(ur *repository.UserRepository) *UserHandler {
+func NewUserHandler(ur *repositories.UserRepository) *UserHandler {
 	return &UserHandler{UserRepository: ur}
 }
 

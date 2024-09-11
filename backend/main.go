@@ -48,6 +48,9 @@ func main() {
 		c.Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 		return c.Next()
 	})
+	app.Options("*", func(c *fiber.Ctx) error {
+		return c.SendStatus(fiber.StatusOK)
+	})
 
 	// Get the port from the environment variables
 	port := os.Getenv("PORT")

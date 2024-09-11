@@ -10,7 +10,7 @@
 
 2. **Core Features:**
    - [X] Implement authentication using OAuth or JWT (JSON Web Token).
-   - [ ] Develop email verification and password recovery features with token-based authentication.
+   - [X] Develop email verification and password recovery features with token-based authentication.
 
 3. **Key Features:**
    - [ ] Choose a payment gateway that supports a wide range of international payment methods.

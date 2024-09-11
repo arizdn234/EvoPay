@@ -27,9 +27,15 @@ func main() {
 		log.Fatalf("Failed to migrate the table: %v", err)
 	}
 
-	// Seed data
-	if err := repositories.NewUserRepository(db.DB).Seed(); err != nil {
-		log.Fatalf("Failed to seed data: %v", err)
+	// Seeder
+	userSeeder := &repositories.UserSeeder{DB: db.DB} // user seeder
+	if err := userSeeder.Seed(); err != nil {
+		log.Fatal("failed to seed users: ", err)
+	}
+
+	transactionSeeder := &repositories.TransactionSeeder{DB: db.DB} // transaction seeder
+	if err := transactionSeeder.Seed(); err != nil {
+		log.Fatal("failed to seed transactions: ", err)
 	}
 
 	// Initialize Fiber app

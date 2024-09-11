@@ -1,10 +1,9 @@
 import axios from 'axios'
 
-const apiClient = axios.create({
-  baseURL: process.env.VUE_APP_API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+const baseURL = import.meta.env.VITE_API_BASE_URL
+
+const instance = axios.create({
+  baseURL: baseURL
 })
 
-export default apiClient
+export default instance

@@ -274,9 +274,7 @@ func (uh *UserHandler) UserRegister(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
-	fmt.Printf("user.Password: %v\n", user.Password)
 	user.Password = hashed
-	fmt.Printf("user.Password: %v\n", user.Password)
 
 	if err := uh.UserRepository.Create(&user); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})

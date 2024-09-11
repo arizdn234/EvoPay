@@ -12,7 +12,6 @@ func HashPassword(password string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	fmt.Printf("hashedPassword-hash: %v\n", string(hashedPassword))
 	return string(hashedPassword), nil
 }
 

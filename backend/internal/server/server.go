@@ -3,20 +3,24 @@ package server
 import (
 	"github.com/arizdn234/EvoPay/internal/handlers"
 	"github.com/arizdn234/EvoPay/internal/middleware"
-	"github.com/arizdn234/EvoPay/internal/repository"
+	"github.com/arizdn234/EvoPay/internal/repositories"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
 func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	// Initialize repositories and handlers
-	userRepo := repository.NewUserRepository(db)
+	// user===============
+	userRepo := repositories.NewUserRepository(db)
 	userHandler := handlers.NewUserHandler(userRepo)
+	// transaction===============
+	TransactionRepo := repositories.NewTransactionRepository(db)
+	TransactionHandler := handlers.NewTransactionHandler(TransactionRepo)
 
-	// Define routes
+	// Define routes (api docs)
 	app.Get("/", userHandler.Welcome)
 
-	// User routes
+	// ===============User routes===============
 	userRoute := app.Group("/users")
 	userRoute.Post("/login", userHandler.UserLogin)
 	userRoute.Post("/register", userHandler.UserRegister)
@@ -32,12 +36,21 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	userRoute.Use(middleware.RequireAuth())
 	userRoute.Use(middleware.RequireAdminRole())
 
-	// Routes that require authentication
+	// User routes that require authentication
 	userRoute.Get("", userHandler.GetAllUsers)
 	userRoute.Get("/:id", userHandler.GetUserByID)
 	userRoute.Post("", userHandler.CreateUser)
 	userRoute.Put("/:id", userHandler.UpdateUser)
 	userRoute.Delete("/:id", userHandler.DeleteUser)
+
+	// ===============Transaction routes===============
+	transactionRoute := app.Group("/transactions")
+	transactionRoute.Use(middleware.RequireAuth())
+	transactionRoute.Post("/", TransactionHandler.CreateTransaction)
+	transactionRoute.Get("/", TransactionHandler.GetAllTransactions)
+	transactionRoute.Get("/:id", TransactionHandler.GetTransactionByID)
+	transactionRoute.Put("/:id", TransactionHandler.UpdateTransaction)
+	transactionRoute.Delete("/:id", TransactionHandler.DeleteTransaction)
 
 	// Start the server on the specified port
 	app.Listen(":" + port)

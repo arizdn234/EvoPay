@@ -1,29 +1,31 @@
 <template>
-	<div class="documentation">
-		<h1>{{ info.service }} API Documentation</h1>
-		<p>Version: {{ info.version }}</p>
-		<div class="table-container">
-			<table>
+	<div class="documentation font-sans p-5 max-w-4xl mx-auto">
+		<h1 class="text-2xl font-bold mb-5">{{ info.service }} API Documentation</h1>
+		<p class="text-lg mb-5">Version: {{ info.version }}</p>
+		<div class="table-container overflow-x-auto w-full">
+			<table class="min-w-full border-collapse mt-5">
 				<thead>
 					<tr>
-						<th>Method</th>
-						<th>Path</th>
-						<th>Description</th>
-						<th>Note</th>
+						<th class="border border-gray-400 px-4 py-2 bg-gray-800 text-white text-left">Method</th>
+						<th class="border border-gray-400 px-4 py-2 bg-gray-800 text-white text-left">Path</th>
+						<th class="border border-gray-400 px-4 py-2 bg-gray-800 text-white text-left">Description</th>
+						<th class="border border-gray-400 px-4 py-2 bg-gray-800 text-white text-left">Note</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(route, index) in info.routes" :key="index">
-						<td>{{ route.method }}</td>
-						<td>{{ route.path }}</td>
-						<td>{{ route.description }}</td>
-						<td v-if="route.note">{{ route.note }}</td>
-						<td v-else>-</td>
+					<tr v-for="(route, index) in info.routes" :key="index"
+						class="even:bg-gray-800 even:text-white hover:bg-gray-700 hover:text-white transition-all duration-300">
+						<td class="border border-gray-400 px-4 py-2 whitespace-nowrap">{{ route.method }}</td>
+						<td class="border border-gray-400 px-4 py-2 whitespace-nowrap">{{ route.path }}</td>
+						<td class="border border-gray-400 px-4 py-2 whitespace-nowrap">{{ route.description }}</td>
+						<td v-if="route.note" class="border border-gray-400 px-4 py-2 whitespace-nowrap">{{ route.note
+							}}</td>
+						<td v-else class="border border-gray-400 px-4 py-2 whitespace-nowrap">-</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
-		<p>*{{ info.note }}</p>
+		<p class="mt-5 text-sm italic">*{{ info.note }}</p>
 	</div>
 </template>
 
@@ -44,66 +46,3 @@ const fetchApiInfo = async () => {
 };
 onMounted(fetchApiInfo);
 </script>
-
-<style scoped>
-.documentation {
-	padding: 20px;
-	max-width: 1000px;
-	margin: 0 auto;
-}
-
-.documentation h1 {
-	font-size: 2em;
-	margin-bottom: 20px;
-}
-
-.table-container {
-	overflow-x: auto;
-	/* Enable horizontal scrolling */
-	width: 100%;
-	/* Ensure container takes full width */
-}
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 20px;
-}
-
-th,
-td {
-	border: 1px solid #dddddd;
-	padding: 8px;
-	text-align: left;
-}
-
-th {
-	background-color: #1a282e;
-	font-weight: bold;
-	color: #ffffff;
-	/* Text color for better contrast */
-}
-
-tr {
-	transition: all .5s;
-}
-
-tr:nth-child(even) {
-	background-color: #303030;
-}
-
-tr:hover {
-	background-color: #444444;
-}
-
-td {
-	white-space: nowrap;
-	/* Prevent text from wrapping */
-}
-
-@media (max-width: 600px) {
-	.documentation h1 {
-		font-size: 1.5em;
-	}
-}
-</style>

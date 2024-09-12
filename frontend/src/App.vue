@@ -1,69 +1,46 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <div class="app-container">
-    <header>
-      <div class="wrapper">
-        <nav>
-          <RouterLink to="/">API Docs</RouterLink>
-          <RouterLink to="/users/login">Login</RouterLink>
-          <RouterLink to="/users/register">Register</RouterLink>
-        </nav>
-      </div>
-    </header>
-    <main>
-      <RouterView />
-    </main>
-  </div>
+	<div :class="{ 'dark': isDarkMode }">
+		<header class="p-4 bg-gray-800 dark:bg-gray-900">
+			<div class="container mx-auto flex justify-between items-center">
+				<nav class="flex space-x-4">
+					<RouterLink to="/"
+						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
+						API Docs
+					</RouterLink>
+					<RouterLink to="/users/login"
+						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
+						Login
+					</RouterLink>
+					<RouterLink to="/users/register"
+						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
+						Register
+					</RouterLink>
+				</nav>
+
+				<button @click="toggleDarkMode"
+					class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600">
+					<i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+				</button>
+			</div>
+		</header>
+		<main class="p-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+			<!-- Your content here -->
+			<RouterView />
+		</main>
+	</div>
 </template>
 
-<style scoped>
-/* Resetting default styles for 'a' tags */
-a {
-  text-decoration: none;
-  color: inherit;
-}
+<script setup>
+import { ref } from 'vue'
+import { RouterLink, RouterView } from 'vue-router'
 
-.app-container {
-  display: flex;
-  flex-direction: column;
-}
+const isDarkMode = ref(false)
 
-header {
-  background: #505050;
-  line-height: 1.5;
-  padding: 0 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #646464;
+const toggleDarkMode = () => {
+	isDarkMode.value = !isDarkMode.value
+	document.documentElement.classList.toggle('dark', isDarkMode.value)
 }
-
-nav {
-  display: flex;
-  gap: 1rem;
-  font-size: 1rem;
-  margin: .3em 8em;
-}
-
-nav a.router-link-exact-active {
-  color: white;
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-main {
-  flex: 1;
-  padding: 1rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    padding-right: calc(var(--section-gap) / 2);
-  }
-}
-</style>
+</script>

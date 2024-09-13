@@ -1,22 +1,45 @@
 <!-- src/views/ResetPasswordView.vue -->
 <template>
-    <div class="reset-password">
-        <h1>Reset Password</h1>
-        <form @submit.prevent="handleSubmit">
-            <label for="new-password">New Password:</label>
-            <input type="password" v-model="newPassword" required />
+    <div class="reset-password bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 max-w-md mx-auto mt-28">
+        <h1 class="text-3xl font-semibold mb-8 text-center text-gray-800 dark:text-gray-200">Reset Password</h1>
+        <form @submit.prevent="handleSubmit" class="space-y-6">
+            <div class="relative space-y-2">
+                <label for="new-password" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">New
+                    Password:</label>
+                <div class="relative">
+                    <input type="password" v-model="newPassword" required
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+                        placeholder="Enter new password" />
+                </div>
+            </div>
 
-            <label for="confirm-password">Confirm Password:</label>
-            <input type="password" v-model="confirmPassword" required />
+            <div class="relative space-y-2">
+                <label for="confirm-password" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Confirm
+                    Password:</label>
+                <div class="relative">
+                    <input type="password" v-model="confirmPassword" required
+                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
+                        placeholder="Confirm your password" />
+                </div>
+            </div>
 
-            <button type="submit">Reset Password</button>
+            <div class="flex items-center justify-center">
+                <button type="submit"
+                    class="mb-3 w-full flex justify-center bg-indigo-700 dark:bg-indigo-600 hover:bg-indigo-400 dark:hover:bg-indigo-400 text-white font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-opacity-50 flex items-center">
+                    Reset Password
+                </button>
+            </div>
+            <a href="/users/login"
+                class="text-indigo-700 dark:text-indigo-600 hover:text-indigo-400 dark:hover:text-indigo-400 font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out">
+                Back to Login page
+            </a>
         </form>
     </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios'
+import axios from '../axios'
 
 const newPassword = ref('')
 const confirmPassword = ref('')
@@ -45,37 +68,11 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
-.reset-password {
-    padding: 20px;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 10px;
+.relative {
+    position: relative;
 }
 
 input {
-    padding: 8px;
-    margin-top: 5px;
-}
-
-button {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 </style>

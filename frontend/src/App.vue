@@ -34,7 +34,7 @@
 
 					<!-- Show Logout only if the user is logged in -->
 					<button @click="handleLogout"
-						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 focus:border-gray-500 dark:focus:border-gray-400 focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400"
+						class="text-white p-2 rounded-lg bg-rose-600 hover:bg-rose-500 dark:hover:bg-rose-500 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-1 focus:ring-rose-500 dark:focus:ring-rose-400"
 						v-if="isLoggedIn">
 						Logout
 					</button>
@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, watchEffect } from 'vue';
 import Cookies from 'js-cookie';
 import { RouterLink, RouterView } from 'vue-router';
 import { useRouter } from 'vue-router';
@@ -62,40 +62,38 @@ const router = useRouter();
 const isDarkMode = ref(false);
 const isLoggedIn = ref(false);  // Track login state based on cookie
 
+// Dark Mode Toggle
 const toggleDarkMode = () => {
 	isDarkMode.value = !isDarkMode.value;
 	document.documentElement.classList.toggle('dark', isDarkMode.value);
 	localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light');
 };
 
+// Handle Logout Function
 const handleLogout = async () => {
 	try {
 		await axios.post('users/logout', {}, { withCredentials: true });
 		console.log('Logout successful');
-		isLoggedIn.value = false;  // Update login state after logout
 		Cookies.remove('auth_token');
+		isLoggedIn.value = false;
 		router.push('/users/login');
 	} catch (error) {
 		console.error('Logout error:', error);
 	}
 };
 
-onMounted(() => {
-	// Check for saved dark mode preference
-	const savedTheme = localStorage.getItem('theme');
-	if (savedTheme) {
-		isDarkMode.value = savedTheme === 'dark';
-		document.documentElement.classList.toggle('dark', isDarkMode.value);
-	}
-
-	// Check if 'auth_token' cookie exists to determine if the user is logged in
+// Watch for changes in the auth_token cookie and update the login state
+watchEffect(() => {
 	const token = Cookies.get('auth_token');
-	if (token && token !== '') {
-		isLoggedIn.value = true;
-	} else {
-		isLoggedIn.value = false;
-	}
+	isLoggedIn.value = token && token !== '';
 });
+
+// Set theme based on user preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+	isDarkMode.value = savedTheme === 'dark';
+	document.documentElement.classList.toggle('dark', isDarkMode.value);
+}
 </script>
 
 <style scoped>

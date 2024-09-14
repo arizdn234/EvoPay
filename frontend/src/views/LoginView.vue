@@ -71,6 +71,9 @@ const handleSubmit = async () => {
         console.log('Login successful', response.data)
         setTimeout(() => {
             router.push('/users/homepage')
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
         }, 500);
 
     } catch (err) {

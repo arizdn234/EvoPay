@@ -53,21 +53,28 @@
 <script setup>
 import { ref } from 'vue'
 import axios from '../axios'
+import { useRouter } from 'vue-router'
 
-// Define refs for form inputs and error handling
+const router = useRouter()
 const email = ref('')
 const password = ref('')
-const error = ref('')  // Define the error ref
+const error = ref('')
 
 const handleSubmit = async () => {
-    error.value = ''  // Reset the error value before submitting
+    error.value = ''
     try {
         const response = await axios.post('/users/login', {
             email: email.value,
             password: password.value
-        })
+        }, { withCredentials: true })
+
         console.log('Login successful', response.data)
+        setTimeout(() => {
+            router.push('/users/homepage')
+        }, 500);
+
     } catch (err) {
+
         if (err.response) {
             error.value = err.response.data.error || 'An error occurred during login.'
             console.error('Error response data', err.response.data)

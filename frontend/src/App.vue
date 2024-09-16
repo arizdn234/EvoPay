@@ -25,7 +25,12 @@
 
 					<button @click="toggleDarkMode"
 						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 focus:border-gray-500 dark:focus:border-gray-400 focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400">
-						<i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" class="icon-size"></i> <!-- Apply icon-size class here -->
+						<i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" class="icon-size"></i>
+					</button>
+
+					<button @click="handleLogout"
+						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 focus:border-gray-500 dark:focus:border-gray-400 focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400">
+						Logout
 					</button>
 				</div>
 			</div>
@@ -40,6 +45,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import axios from './axios'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const isDarkMode = ref(false)
 
@@ -47,6 +56,16 @@ const toggleDarkMode = () => {
 	isDarkMode.value = !isDarkMode.value
 	document.documentElement.classList.toggle('dark', isDarkMode.value)
 	localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
+}
+
+const handleLogout = async () => {
+	try {
+		await axios.post('users/logout', {}, { withCredentials: true });
+		console.log('Logout successful');
+		router.push('/users/login');
+	} catch (error) {
+		console.error('Logout error:', error);
+	}
 }
 
 onMounted(() => {
@@ -60,9 +79,9 @@ onMounted(() => {
 
 <style scoped>
 .icon-size {
-	width: 1rem;  
-	height: 1rem; 
-	font-size: 1rem; 
+	width: 1rem;
+	height: 1rem;
+	font-size: 1rem;
 	display: flex;
 	align-items: center;
 	justify-content: center;

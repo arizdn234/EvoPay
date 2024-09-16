@@ -324,7 +324,9 @@ func (uh *UserHandler) UserLogin(c *fiber.Ctx) error {
 		Name:     "auth_token",
 		Value:    *token,
 		Expires:  time.Now().Add(24 * time.Hour),
-		HTTPOnly: true,
+		HTTPOnly: false,
+		SameSite: "Lax",
+		// Secure:   true,
 	})
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message": "login successful"})
@@ -335,7 +337,9 @@ func (uh *UserHandler) UserLogout(c *fiber.Ctx) error {
 		Name:     "auth_token",
 		Value:    "",
 		Expires:  time.Now().Add(-1 * time.Hour),
-		HTTPOnly: true,
+		HTTPOnly: false,
+		Secure:   false,
+		SameSite: "Lax",
 	})
 	return c.SendString("logout successful")
 }

@@ -17,7 +17,8 @@
                 <label for="password"
                     class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Password</label>
                 <div class="relative">
-                    <input type="password" v-model="password" name="password" id="password" autocomplete="current-password" required
+                    <input type="password" v-model="password" name="password" id="password"
+                        autocomplete="current-password" required
                         class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
                         placeholder="Enter your password" />
                     <i
@@ -74,7 +75,9 @@ const handleSubmit = async () => {
             name: name.value
         })
         console.log('Registration successful')
-        router.push('/users/verify-email')
+        setTimeout(() => {
+            router.push('/users/verify-email')
+        }, 1000);
     } catch (err) {
         if (err.response) {
             error.value = err.response.data.error || 'An error occurred during registration.'

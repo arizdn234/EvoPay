@@ -24,8 +24,8 @@
 					</RouterLink>
 
 					<button @click="toggleDarkMode"
-						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600">
-						<i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 focus:border-gray-500 dark:focus:border-gray-400 focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400">
+						<i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" class="icon-size"></i> <!-- Apply icon-size class here -->
 					</button>
 				</div>
 			</div>
@@ -57,3 +57,14 @@ onMounted(() => {
 	}
 })
 </script>
+
+<style scoped>
+.icon-size {
+	width: 1rem;  
+	height: 1rem; 
+	font-size: 1rem; 
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+</style>

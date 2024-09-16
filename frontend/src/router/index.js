@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import DocumentationView from '@/views/DocumentationView.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
-import LogoutView from '@/views/LogoutView.vue'
 import VerifyEmailView from '@/views/VerifyEmailView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
+import UserHomepage from '@/views/UserHomepage.vue'
 
 
 const router = createRouter({
@@ -36,11 +36,6 @@ const router = createRouter({
       component: RegisterView
     },
     {
-      path: '/users/logout',
-      name: 'logout',
-      component: LogoutView
-    },
-    {
       path: '/users/verify-email',
       name: 'verify-email',
       component: VerifyEmailView
@@ -49,6 +44,11 @@ const router = createRouter({
       path: '/users/reset-password',
       name: 'reset-password',
       component: ResetPasswordView
+    },
+    {
+      path: '/users/homepage',
+      name: 'user-homepage',
+      component: UserHomepage
     }
   ]
 })

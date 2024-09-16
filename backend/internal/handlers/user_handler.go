@@ -258,15 +258,15 @@ func (uh *UserHandler) UserRegister(c *fiber.Ctx) error {
 		RoleID:   2,
 	}
 
-	// validate user data
-	if err := uh.validateUser(user); err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
-	}
-
 	// email check
 	existingUser, err := uh.UserRepository.FindByEmail(user.Email)
 	if err == nil && existingUser != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "email already registered"})
+	}
+
+	// validate user data
+	if err := uh.validateUser(user); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 
 	// Hash the user's password

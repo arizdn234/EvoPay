@@ -1,11 +1,11 @@
 <template>
-    <div class="register bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 max-w-md mx-auto mt-28">
+    <div class="register bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 max-w-md mx-auto mt-16">
         <h1 class="text-3xl font-semibold mb-8 text-center text-gray-800 dark:text-gray-200">Register</h1>
         <form @submit.prevent="handleSubmit" class="space-y-6">
             <div class="relative space-y-2">
                 <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Email</label>
                 <div class="relative">
-                    <input type="email" v-model="email" required
+                    <input type="email" v-model="email" name="email" id="email" autocomplete="email" required
                         class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
                         placeholder="Enter your email" />
                     <i
@@ -17,7 +17,7 @@
                 <label for="password"
                     class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Password</label>
                 <div class="relative">
-                    <input type="password" v-model="password" required
+                    <input type="password" v-model="password" name="password" id="password" autocomplete="current-password" required
                         class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
                         placeholder="Enter your password" />
                     <i
@@ -28,7 +28,7 @@
             <div class="relative space-y-2">
                 <label for="name" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Name</label>
                 <div class="relative">
-                    <input type="text" v-model="name" required
+                    <input type="text" v-model="name" name="name" id="name" autocomplete="username" required
                         class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
                         placeholder="Enter your name" />
                     <i
@@ -73,11 +73,11 @@ const handleSubmit = async () => {
             password: password.value,
             name: name.value
         })
-        console.log('Registration successful:', response.data)
+        console.log('Registration successful')
         router.push('/users/verify-email')
     } catch (err) {
         if (err.response) {
-            error.value = err.response.data.message || 'An error occurred during registration.'
+            error.value = err.response.data.error || 'An error occurred during registration.'
             console.error('Error response data:', err.response.data)
         } else if (err.request) {
             error.value = 'No response received from server.'

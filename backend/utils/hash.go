@@ -22,6 +22,6 @@ func CheckPassword(hashedPassword, password string) bool {
 		fmt.Printf("Password check failed: %v\n", err)
 		return false
 	}
-	fmt.Println("Password check succeeded")
+	// fmt.Println("Password check succeeded")
 	return true
 }

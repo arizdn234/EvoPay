@@ -10,6 +10,7 @@ import (
 	"github.com/arizdn234/EvoPay/internal/repositories"
 	"github.com/arizdn234/EvoPay/internal/server"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -42,15 +43,12 @@ func main() {
 	app := fiber.New()
 
 	// Enable CORS middleware
-	app.Use(func(c *fiber.Ctx) error {
-		c.Set("Access-Control-Allow-Origin", "*")
-		c.Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-		c.Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-		return c.Next()
-	})
-	app.Options("*", func(c *fiber.Ctx) error {
-		return c.SendStatus(fiber.StatusOK)
-	})
+	app.Use(cors.New(cors.Config{
+		AllowOrigins:     "http://localhost:5173",
+		AllowCredentials: true,
+		AllowHeaders:     "Origin, Content-Type, Authorization",
+		AllowMethods:     "GET, POST, PUT, DELETE, OPTIONS",
+	}))
 
 	// Get the port from the environment variables
 	port := os.Getenv("PORT")

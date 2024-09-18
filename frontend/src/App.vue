@@ -12,24 +12,30 @@
 				</div>
 
 				<div class="flex items-center space-x-4">
+					<!-- Show Login and Register only if the user is not logged in -->
 					<RouterLink to="/users/login"
 						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
-						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
+						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold"
+						v-if="!isLoggedIn">
 						Login
 					</RouterLink>
 					<RouterLink to="/users/register"
 						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
-						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
+						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold"
+						v-if="!isLoggedIn">
 						Register
 					</RouterLink>
 
+					<!-- Dark Mode Toggle -->
 					<button @click="toggleDarkMode"
 						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 focus:border-gray-500 dark:focus:border-gray-400 focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400">
 						<i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" class="icon-size"></i>
 					</button>
 
+					<!-- Show Logout only if the user is logged in -->
 					<button @click="handleLogout"
-						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 focus:border-gray-500 dark:focus:border-gray-400 focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400">
+						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 focus:border-gray-500 dark:focus:border-gray-400 focus:ring-1 focus:ring-gray-500 dark:focus:ring-gray-400"
+						v-if="isLoggedIn">
 						Logout
 					</button>
 				</div>
@@ -43,38 +49,53 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { RouterLink, RouterView } from 'vue-router'
-import axios from './axios'
-import { useRouter } from 'vue-router'
+import { ref, onMounted } from 'vue';
+import Cookies from 'js-cookie';
+import { RouterLink, RouterView } from 'vue-router';
+import { useRouter } from 'vue-router';
+import axios from './axios';
 
-const router = useRouter()
+// Router instance
+const router = useRouter();
 
-const isDarkMode = ref(false)
+// Theme and login state
+const isDarkMode = ref(false);
+const isLoggedIn = ref(false);  // Track login state based on cookie
 
 const toggleDarkMode = () => {
-	isDarkMode.value = !isDarkMode.value
-	document.documentElement.classList.toggle('dark', isDarkMode.value)
-	localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light')
-}
+	isDarkMode.value = !isDarkMode.value;
+	document.documentElement.classList.toggle('dark', isDarkMode.value);
+	localStorage.setItem('theme', isDarkMode.value ? 'dark' : 'light');
+};
 
 const handleLogout = async () => {
 	try {
 		await axios.post('users/logout', {}, { withCredentials: true });
 		console.log('Logout successful');
+		isLoggedIn.value = false;  // Update login state after logout
+		Cookies.remove('auth_token');
 		router.push('/users/login');
 	} catch (error) {
 		console.error('Logout error:', error);
 	}
-}
+};
 
 onMounted(() => {
-	const savedTheme = localStorage.getItem('theme')
+	// Check for saved dark mode preference
+	const savedTheme = localStorage.getItem('theme');
 	if (savedTheme) {
-		isDarkMode.value = savedTheme === 'dark'
-		document.documentElement.classList.toggle('dark', isDarkMode.value)
+		isDarkMode.value = savedTheme === 'dark';
+		document.documentElement.classList.toggle('dark', isDarkMode.value);
 	}
-})
+
+	// Check if 'auth_token' cookie exists to determine if the user is logged in
+	const token = Cookies.get('auth_token');
+	if (token && token !== '') {
+		isLoggedIn.value = true;
+	} else {
+		isLoggedIn.value = false;
+	}
+});
 </script>
 
 <style scoped>

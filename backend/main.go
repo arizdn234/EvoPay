@@ -8,6 +8,7 @@ import (
 	"github.com/arizdn234/EvoPay/internal/db"
 	"github.com/arizdn234/EvoPay/internal/redis"
 	"github.com/arizdn234/EvoPay/internal/repositories"
+	"github.com/arizdn234/EvoPay/internal/seeders"
 	"github.com/arizdn234/EvoPay/internal/server"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -29,14 +30,8 @@ func main() {
 	}
 
 	// Seeder
-	userSeeder := &repositories.UserSeeder{DB: db.DB} // user seeder
-	if err := userSeeder.Seed(); err != nil {
-		log.Fatal("failed to seed users: ", err)
-	}
-
-	transactionSeeder := &repositories.TransactionSeeder{DB: db.DB} // transaction seeder
-	if err := transactionSeeder.Seed(); err != nil {
-		log.Fatal("failed to seed transactions: ", err)
+	if err := seeders.SeedAll(db.DB); err != nil {
+		log.Fatalln("Seeding failed:", err)
 	}
 
 	// Initialize Fiber app

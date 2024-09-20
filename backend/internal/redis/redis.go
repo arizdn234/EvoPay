@@ -44,3 +44,8 @@ func Get(key string) (string, error) {
 	}
 	return val, nil
 }
+
+// Delete removes a key from Redis
+func Delete(key string) error {
+	return RedisClient.Del(Ctx, key).Err()
+}

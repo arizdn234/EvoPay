@@ -33,7 +33,7 @@ func (h *TransactionHandler) CreateTransaction(c *fiber.Ctx) error {
 
 // GetAllTransactions retrieves all transactions
 func (h *TransactionHandler) GetAllTransactions(c *fiber.Ctx) error {
-	transactions, err := h.repo.GetAll()
+	transactions, err := h.repo.FindAll()
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to retrieve transactions"})
 	}
@@ -48,7 +48,7 @@ func (h *TransactionHandler) GetTransactionByID(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid transaction ID"})
 	}
 
-	transaction, err := h.repo.GetByID(uint(id))
+	transaction, err := h.repo.FindByID(uint(id))
 	if err != nil {
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{"error": "Transaction not found"})
 	}
@@ -76,16 +76,16 @@ func (h *TransactionHandler) UpdateTransaction(c *fiber.Ctx) error {
 	return c.JSON(transaction)
 }
 
-// DeleteTransaction deletes a transaction
-func (h *TransactionHandler) DeleteTransaction(c *fiber.Ctx) error {
-	id, err := strconv.Atoi(c.Params("id"))
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid transaction ID"})
-	}
+// // DeleteTransaction deletes a transaction
+// func (h *TransactionHandler) DeleteTransaction(c *fiber.Ctx) error {
+// 	id, err := strconv.Atoi(c.Params("id"))
+// 	if err != nil {
+// 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid transaction ID"})
+// 	}
 
-	if err := h.repo.Delete(uint(id)); err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete transaction"})
-	}
+// 	if err := h.repo.Delete(uint(id)); err != nil {
+// 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to delete transaction"})
+// 	}
 
-	return c.SendStatus(fiber.StatusNoContent)
-}
+// 	return c.SendStatus(fiber.StatusNoContent)
+// }

@@ -24,11 +24,21 @@ func (ur *UserRepository) Create(user *models.User) error {
 }
 
 func (ur *UserRepository) Update(user *models.User) error {
-	return ur.DB.Save(user).Error
+	err := ur.DB.Save(user).Error
+	if err == nil {
+		cacheKey := "user:" + strconv.FormatUint(uint64(user.ID), 10)
+		redis.Delete(cacheKey) // Invalidate cache
+	}
+	return err
 }
 
 func (ur *UserRepository) Delete(id uint) error {
-	return ur.DB.Delete(&models.User{}, id).Error
+	err := ur.DB.Delete(&models.User{}, id).Error
+	if err == nil {
+		cacheKey := "user:" + strconv.FormatUint(uint64(id), 10)
+		redis.Delete(cacheKey) // Invalidate cache
+	}
+	return err
 }
 
 func (ur *UserRepository) FindAll(user *[]models.User) error {

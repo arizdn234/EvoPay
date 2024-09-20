@@ -1,6 +1,4 @@
-// repositories/user_seeder.go
-
-package repositories
+package seeders
 
 import (
 	"log"
@@ -34,6 +32,7 @@ func (us *UserSeeder) seedRoles() error {
 		return err
 	}
 
+	// If there is already data in the table, skip seeding
 	if count > 0 {
 		return nil
 	}

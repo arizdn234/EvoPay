@@ -9,18 +9,6 @@ type Role struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type Permission struct {
-	ID        uint      `json:"id" gorm:"primaryKey"`
-	Name      string    `json:"name" gorm:"type:varchar(255);unique;not null"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
-type RolePermission struct {
-	RoleID       uint `json:"role_id" gorm:"primaryKey"`
-	PermissionID uint `json:"permission_id" gorm:"primaryKey"`
-}
-
 type User struct {
 	ID                uint       `json:"id" gorm:"primaryKey"`
 	Name              string     `json:"name" gorm:"type:varchar(255);"`

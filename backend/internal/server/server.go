@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/arizdn234/EvoPay/internal/handlers"
 	"github.com/arizdn234/EvoPay/internal/middleware"
+	"github.com/arizdn234/EvoPay/internal/redis"
 	"github.com/arizdn234/EvoPay/internal/repositories"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -10,17 +11,21 @@ import (
 
 func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	// Initialize repositories and handlers
-	// user===============
+	// User repository
 	userRepo := repositories.NewUserRepository(db)
 	userHandler := handlers.NewUserHandler(userRepo)
-	// transaction===============
-	TransactionRepo := repositories.NewTransactionRepository(db)
-	TransactionHandler := handlers.NewTransactionHandler(TransactionRepo)
 
-	// Define routes (api docs)
+	// Transaction log repository
+	logRepo := repositories.NewTransactionLogRepository(db, redis.RedisClient)
+
+	// Transaction repository with redis client
+	transactionRepo := repositories.NewTransactionRepository(db, logRepo, redis.RedisClient)
+	transactionHandler := handlers.NewTransactionHandler(transactionRepo)
+
+	// Define routes (API docs)
 	app.Get("/", userHandler.Welcome)
 
-	// ===============User routes===============
+	// =============== User routes ================
 	userRoute := app.Group("/users")
 	userRoute.Post("/login", userHandler.UserLogin)
 	userRoute.Post("/register", userHandler.UserRegister)
@@ -43,14 +48,13 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	userRoute.Put("/:id", userHandler.UpdateUser)
 	userRoute.Delete("/:id", userHandler.DeleteUser)
 
-	// ===============Transaction routes===============
+	// =============== Transaction routes ================
 	transactionRoute := app.Group("/transactions")
 	transactionRoute.Use(middleware.RequireAuth())
-	transactionRoute.Post("/", TransactionHandler.CreateTransaction)
-	transactionRoute.Get("/", TransactionHandler.GetAllTransactions)
-	transactionRoute.Get("/:id", TransactionHandler.GetTransactionByID)
-	transactionRoute.Put("/:id", TransactionHandler.UpdateTransaction)
-	transactionRoute.Delete("/:id", TransactionHandler.DeleteTransaction)
+	transactionRoute.Post("/", transactionHandler.CreateTransaction)
+	transactionRoute.Get("/", transactionHandler.GetAllTransactions)
+	transactionRoute.Get("/:id", transactionHandler.GetTransactionByID)
+	transactionRoute.Put("/:id", transactionHandler.UpdateTransaction)
 
 	// Start the server on the specified port
 	app.Listen(":" + port)

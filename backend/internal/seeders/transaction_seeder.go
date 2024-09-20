@@ -1,4 +1,4 @@
-package repositories
+package seeders
 
 import (
 	"log"
@@ -25,6 +25,7 @@ func (ts *TransactionSeeder) seedTransactions() error {
 		return err
 	}
 
+	// If there is already data in the table, skip seeding
 	if count > 0 {
 		return nil
 	}

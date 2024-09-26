@@ -22,6 +22,10 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	transactionRepo := repositories.NewTransactionRepository(db, logRepo, redis.RedisClient)
 	transactionHandler := handlers.NewTransactionHandler(transactionRepo)
 
+	// Balance repository with Redis caching
+	balanceRepo := repositories.NewBalanceRepository(db, redis.RedisClient)
+	balanceHandler := handlers.NewBalanceHandler(balanceRepo)
+
 	// Define routes (API docs)
 	app.Get("/", userHandler.Welcome)
 
@@ -55,6 +59,17 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	transactionRoute.Get("/", transactionHandler.GetAllTransactions)
 	transactionRoute.Get("/:id", transactionHandler.GetTransactionByID)
 	transactionRoute.Put("/:id", transactionHandler.UpdateTransaction)
+
+	// =============== Balance routes ================
+	balanceRoute := app.Group("/balances")
+	balanceRoute.Use(middleware.RequireAuth())
+
+	// Balance routes
+	balanceRoute.Post("/", balanceHandler.CreateBalance)                       // Create a balance
+	balanceRoute.Get("/:userID", balanceHandler.GetBalanceByUserID)            // Get balance by user ID
+	balanceRoute.Put("/:userID", balanceHandler.UpdateBalance)                 // Update a balance
+	balanceRoute.Post("/:userID/add", balanceHandler.AddToBalance)             // Add to a balance
+	balanceRoute.Post("/:userID/subtract", balanceHandler.SubtractFromBalance) // Subtract from a balance
 
 	// Start the server on the specified port
 	app.Listen(":" + port)

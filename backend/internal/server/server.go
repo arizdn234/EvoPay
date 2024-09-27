@@ -11,14 +11,16 @@ import (
 
 func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	// Initialize repositories and handlers
+
 	// User repository
 	userRepo := repositories.NewUserRepository(db)
 	userHandler := handlers.NewUserHandler(userRepo)
 
 	// Transaction log repository
 	logRepo := repositories.NewTransactionLogRepository(db, redis.RedisClient)
+	logHandler := handlers.NewTransactionLogHandler(logRepo)
 
-	// Transaction repository with redis client
+	// Transaction repository with Redis client
 	transactionRepo := repositories.NewTransactionRepository(db, logRepo, redis.RedisClient)
 	transactionHandler := handlers.NewTransactionHandler(transactionRepo)
 
@@ -26,7 +28,11 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	balanceRepo := repositories.NewBalanceRepository(db, redis.RedisClient)
 	balanceHandler := handlers.NewBalanceHandler(balanceRepo)
 
-	// Define routes (API docs)
+	// Deposit repository and handler
+	depositRepo := repositories.NewDepositRepository(db, balanceRepo, logRepo, redis.RedisClient)
+	depositHandler := handlers.NewDepositHandler(depositRepo)
+
+	// <<<<<<<<<<====[ Define routes (API docs) ]====>>>>>>>>>>>
 	app.Get("/", userHandler.Welcome)
 
 	// =============== User routes ================
@@ -70,6 +76,24 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	balanceRoute.Put("/:userID", balanceHandler.UpdateBalance)                 // Update a balance
 	balanceRoute.Post("/:userID/add", balanceHandler.AddToBalance)             // Add to a balance
 	balanceRoute.Post("/:userID/subtract", balanceHandler.SubtractFromBalance) // Subtract from a balance
+
+	// =============== Deposit routes ================
+	depositRoute := app.Group("/deposits")
+	depositRoute.Use(middleware.RequireAuth())
+
+	// Deposit routes
+	depositRoute.Post("/", depositHandler.CreateDeposit)                   // Create a deposit
+	depositRoute.Get("/:id", depositHandler.GetDepositByID)                // Get deposit by ID
+	depositRoute.Get("/users/:userID", depositHandler.GetDepositsByUserID) // Get all deposits by user ID
+
+	// =============== Transaction Log routes ================
+	logRoute := app.Group("/transaction-logs")
+	logRoute.Use(middleware.RequireAuth())
+
+	// Transaction Log routes
+	logRoute.Post("/", logHandler.CreateTransactionLog)                                       // Create a new transaction log
+	logRoute.Get("/transaction/:transactionID", logHandler.GetTransactionLogsByTransactionID) // Get logs by transaction ID
+	logRoute.Get("/user/:userID", logHandler.GetTransactionLogsByUserID)                      // Get logs by user ID
 
 	// Start the server on the specified port
 	app.Listen(":" + port)

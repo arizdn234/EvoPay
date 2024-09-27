@@ -32,6 +32,10 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	depositRepo := repositories.NewDepositRepository(db, balanceRepo, logRepo, redis.RedisClient)
 	depositHandler := handlers.NewDepositHandler(depositRepo)
 
+	// Withdrawal repository and handler
+	withdrawalRepo := repositories.NewWithdrawalRepository(db, balanceRepo, logRepo, redis.RedisClient)
+	withdrawalHandler := handlers.NewWithdrawalHandler(withdrawalRepo)
+
 	// <<<<<<<<<<====[ Define routes (API docs) ]====>>>>>>>>>>>
 	app.Get("/", userHandler.Welcome)
 
@@ -85,6 +89,15 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	depositRoute.Post("/", depositHandler.CreateDeposit)                   // Create a deposit
 	depositRoute.Get("/:id", depositHandler.GetDepositByID)                // Get deposit by ID
 	depositRoute.Get("/users/:userID", depositHandler.GetDepositsByUserID) // Get all deposits by user ID
+
+	// =============== Withdrawal routes ================
+	withdrawalRoute := app.Group("/withdrawals")
+	withdrawalRoute.Use(middleware.RequireAuth())
+
+	// Withdrawal routes
+	withdrawalRoute.Post("/", withdrawalHandler.CreateWithdrawal)                   // Create a withdrawal
+	withdrawalRoute.Get("/:id", withdrawalHandler.GetWithdrawalByID)                // Get withdrawal by ID
+	withdrawalRoute.Get("/users/:userID", withdrawalHandler.GetWithdrawalsByUserID) // Get all withdrawals by user ID
 
 	// =============== Transaction Log routes ================
 	logRoute := app.Group("/transaction-logs")

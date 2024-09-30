@@ -3,7 +3,6 @@ package utils
 import (
 	"errors"
 
-	"github.com/arizdn234/EvoPay/internal/models"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
@@ -16,9 +15,21 @@ func ValidateStruct(s interface{}) error {
 }
 
 func GetUserIDFromContext(c *fiber.Ctx) (uint64, error) {
-	user, exists := c.Locals("user").(*models.User) // Adjust based on how you store the user info in context
-	if !exists {
-		return 0, errors.New("user not found in context")
+	userID := c.Locals("userID")
+
+	// Use type assertion for different numeric types
+	switch id := userID.(type) {
+	case int:
+		return uint64(id), nil
+	case int64:
+		return uint64(id), nil
+	case float64:
+		return uint64(id), nil
+	case uint64:
+		return id, nil
+	case uint:
+		return uint64(id), nil
+	default:
+		return 0, errors.New("user ID not found in context or invalid type")
 	}
-	return uint64(user.ID), nil // Assuming `ID` is of type uint64
 }

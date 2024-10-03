@@ -1,71 +1,166 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('./fonts/https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
-:root {
-  --vt-c-white: #ffffff;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
-
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
-  --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
-  --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
-  --vt-c-text-dark-1: var(--vt-c-white);
-  --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SFProText-Bold.woff2') format('woff2'),
+       url('./fonts/SFProText-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* semantic color variables for this project */
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SFProText-Heavy.woff2') format('woff2'),
+       url('./fonts/SFProText-Heavy.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SFProText-Light.woff2') format('woff2'),
+       url('./fonts/SFProText-Light.woff') format('woff');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SFProText-Regular.woff2') format('woff2'),
+       url('./fonts/SFProText-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SFProText-Medium.woff2') format('woff2'),
+       url('./fonts/SFProText-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('./fonts/SFProText-Semibold.woff2') format('woff2'),
+       url('./fonts/SFProText-Semibold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  /* Warna Sistem */
+  --system-red-light: rgba(255, 59, 48, 1);
+  --system-red-dark: rgba(255, 69, 58, 1);
+  --system-orange-light: rgba(255, 149, 0, 1);
+  --system-orange-dark: rgba(255, 159, 10, 1);
+  --system-yellow-light: rgba(255, 204, 0, 1);
+  --system-yellow-dark: rgba(255, 214, 10, 1);
+  --system-green-light: rgba(52, 199, 89, 1);
+  --system-green-dark: rgba(48, 209, 88, 1);
+  --system-mint-light: rgba(0, 199, 190, 1);
+  --system-mint-dark: rgba(99, 230, 226, 1);
+  --system-teal-light: rgba(48, 176, 199, 1);
+  --system-teal-dark: rgba(64, 203, 224, 1);
+  --system-cyan-light: rgba(50, 173, 230, 1);
+  --system-cyan-dark: rgba(100, 210, 255, 1);
+  --system-blue-light: rgba(0, 122, 255, 1);
+  --system-blue-dark: rgba(10, 132, 255, 1);
+  --system-indigo-light: rgba(88, 86, 214, 1);
+  --system-indigo-dark: rgba(94, 92, 230, 1);
+  --system-purple-light: rgba(175, 82, 222, 1);
+  --system-purple-dark: rgba(191, 90, 242, 1);
+  --system-pink-light: rgba(255, 45, 85, 1);
+  --system-pink-dark: rgba(255, 55, 95, 1);
+  --system-brown-light: rgba(162, 132, 94, 1);
+  --system-brown-dark: rgba(172, 142, 104, 1);
+  --system-black-light: rgba(0, 0, 0, 1);
+  --system-black-dark: rgba(0, 0, 0, 1);
+  --system-grey-light: rgba(142, 142, 147, 1);
+  --system-grey-dark: rgba(142, 142, 147, 1);
+  --system-grey2-light: rgba(174, 174, 178, 1);
+  --system-grey2-dark: rgba(99, 99, 102, 1);
+  --system-grey3-light: rgba(199, 199, 204, 1);
+  --system-grey3-dark: rgba(0, 0, 0, 1);
+  --system-grey4-light: rgba(199, 199, 204, 1);
+  --system-grey4-dark: rgba(58, 58, 60, 1);
+  --system-grey5-light: rgba(229, 229, 234, 1);
+  --system-grey5-dark: rgba(44, 44, 46, 1);
+  --system-grey6-light: rgba(242, 242, 247, 1);
+  --system-grey6-dark: rgba(28, 28, 30, 1);
+  --system-white-light: rgba(242, 242, 247, 1);
+  --system-white-dark: rgba(255, 255, 255, 1);
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  /* Warna Latar Belakang */
+  --background-primary-light: rgba(255, 255, 255, 1);
+  --background-secondary-light: rgba(242, 242, 247, 1);
+  --background-tertiary-light: rgba(255, 255, 255, 1);
+  --background-primary-dark: rgba(0, 0, 0, 1);
+  --background-secondary-dark: rgba(28, 28, 30, 1);
+  --background-tertiary-dark: rgba(44, 44, 46, 1);
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  /* Warna Label */
+  --text-primary-light: rgba(0, 0, 0, 1);
+  --text-secondary-light: rgba(60, 60, 67, 0.6);
+  --text-tertiary-light: rgba(60, 60, 67, 0.3);
+  --text-quartenary-light: rgba(60, 60, 67, 0.18);
+  --text-primary-dark: rgba(255, 255, 255, 1);
+  --text-secondary-dark: rgba(235, 235, 245, 0.6);
+  --text-tertiary-dark: rgba(235, 235, 245, 0.13);
+  --text-quartenary-dark: rgba(235, 235, 245, 0.16);
+}
+
+/* Variabel Semantik */
+:root {
+  --color-background: var(--system-white-light);
+  --color-background-soft: var(--system-grey6-light);
+  --color-background-mute: var(--system-grey5-light);
+
+  --color-border: var(--system-grey4-light);
+  --color-border-hover: var(--system-grey3-light);
+
+  --color-heading: var(--system-grey-dark);
+  --color-text: var(--system-grey2-dark);
 
   --section-gap: 160px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+    --color-background: var(--system-black-dark);
+    --color-background-soft: var(--system-grey6-dark);
+    --color-background-mute: var(--system-grey5-dark);
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+    --color-border: var(--system-grey4-dark);
+    --color-border-hover: var(--system-grey3-dark);
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-heading: var(--system-white-dark);
+    --color-text: var(--system-grey2-light);
   }
 }
 
+/* Penataan Dasar */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
   font-weight: normal;
 }
 
 body {
-  min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
-  font-family: 'Josefin Sans', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'SF Pro Text', 'Josefin Sans', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -74,4 +169,68 @@ body {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
+
+/* {{{{{{{{{{{{{{{{{ MY COLORS }}}}}}}}}}}}}}}}} */
+/* :root {
+  --system-red-light: rgba(255, 59, 48, 1);
+  --system-red-dark: rgba(255, 69, 58, 1);
+  --system-orange-light: rgba(255, 149, 0, 1);
+  --system-orange-dark: rgba(255, 159, 10, 1);
+  --system-yellow-light: rgba(255, 204, 0, 1);
+  --system-yellow-dark: rgba(255, 214, 10, 1);
+  --system-green-light: rgba(52, 199, 89, 1);
+  --system-green-dark: rgba(48, 209, 88, 1);
+  --system-mint-light: rgba(0, 199, 190, 1);
+  --system-mint-dark: rgba(99, 230, 226, 1);
+  --system-teal-light: rgba(48, 176, 199, 1);
+  --system-teal-dark: rgba(64, 203, 224, 1);
+  --system-cyan-light: rgba(50, 173, 230, 1);
+  --system-cyan-dark: rgba(100, 210, 255, 1);
+  --system-blue-light: rgba(0, 122, 255, 1);
+  --system-blue-dark: rgba(10, 132, 255, 1);
+  --system-indigo-light: rgba(88, 86, 214, 1);
+  --system-indigo-dark: rgba(94, 92, 230, 1);
+  --system-purple-light: rgba(175, 82, 222, 1);
+  --system-purple-dark: rgba(191, 90, 242, 1);
+  --system-pink-light: rgba(255, 45, 85, 1);
+  --system-pink-dark: rgba(255, 55, 95, 1);
+  --system-brown-light: rgba(162, 132, 94, 1);
+  --system-brown-dark: rgba(172, 142, 104, 1);
+  --system-black-light: rgba(0, 0, 0, 1);
+  --system-black-dark: rgba(0, 0, 0, 1);
+  --system-grey-light: rgba(142, 142, 147, 1);
+  --system-grey-dark: rgba(142, 142, 147, 1);
+  --system-grey2-light: rgba(174, 174, 178, 1);
+  --system-grey2-dark: rgba(99, 99, 102, 1);
+  --system-grey3-light: rgba(199, 199, 204, 1);
+  --system-grey3-dark: rgba(0, 0, 0, 1);
+  --system-grey4-light: rgba(199, 199, 204, 1);
+  --system-grey4-dark: rgba(58, 58, 60, 1);
+  --system-grey5-light: rgba(229, 229, 234, 1);
+  --system-grey5-dark: rgba(44, 44, 46, 1);
+  --system-grey6-light: rgba(242, 242, 247, 1);
+  --system-grey6-dark: rgba(28, 28, 30, 1);
+  --system-white-light: rgba(242, 242, 247, 1);
+  --system-white-dark: rgba(255, 255, 255, 1);
+
+  --background-primary-light: rgba(255, 255, 255, 1);
+  --background-secondary-light: rgba(242, 242, 247, 1);
+  --background-tertiary-light: rgba(255, 255, 255, 1);
+  --background-primary-dark-base: rgba(0, 0, 0, 1);
+  --background-secondary-dark-base: rgba(28, 28, 30, 1);
+  --background-tertiary-dark-base: rgba(44, 44, 46, 1);
+  --background-primary-dark-elevated: rgba(28, 28, 30, 1);
+  --background-secondary-dark-elevated: rgba(44, 44, 46, 1);
+  --background-tertiary-dark-elevated: rgba(58, 58, 60, 1);
+
+  --text-primary-light: rgba(0, 0, 0, 1);
+  --text-secondary-light: rgba(60, 60, 67, 0.6);
+  --text-tertiary-light: rgba(60, 60, 67, 0.3);
+  --text-quartenary-light: rgba(60, 60, 67, 0.18);
+  --text-primary-dark: rgba(255, 255, 255, 1);
+  --text-secondary-dark: rgba(235, 235, 245, 0.6);
+  --text-tertiary-dark: rgba(235, 235, 245, 0.13);
+  --text-quartenary-dark: rgba(235, 235, 245, 0.16);
+} */

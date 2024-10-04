@@ -1,56 +1,56 @@
 <template>
 	<div :class="{ 'dark': isDarkMode }">
-		<header class="font-sans fixed top-0 left-0 right-0 z-50 p-4 bg-gray-800 dark:bg-gray-900 shadow-md">
+		<header class="fixed top-0 left-0 right-0 z-50 px-4 py-5 bg-white-light dark:bg-black-dark shadow-md">
 			<div class="container mx-auto flex justify-between items-center">
 				<!-- Logo -->
 				<div class="flex space-x-4">
 					<p
-						class="text-2xl cursor-pointer font-bold text-indigo-400 dark:text-indigo-300 hover:text-white dark:hover:text-gray-100">
+						class="text-2xl cursor-pointer font-sans font-bold text-blue-light dark:text-blue-dark hover:text-cyan-light dark:hover:text-cyan-dark">
 						EvoPay
 					</p>
 				</div>
 
 				<!-- Menu Icon for Mobile -->
 				<div class="md:hidden flex items-center">
-					<button @click="isMenuOpen = !isMenuOpen" class="text-gray-300 dark:text-gray-200 hover:text-white">
-						<i :class="isMenuOpen ? 'fas fa-times' : 'fas fa-bars'" class="icon-size"></i>
+					<button @click="isMenuOpen = !isMenuOpen" class="text-blue-light dark:text-blue-light z-1">
+						<i :class="isMenuOpen ? 'bx bx-x bx-md' : 'bx bx-menu bx-md'" class="icon-size"></i>
 					</button>
 				</div>
 
-				<!-- Navigation Links (hidden on mobile) -->
+				<!-- Navigation Links (dekstop) -->
 				<nav class="hidden md:flex items-center space-x-4"
 					:class="{ hidden: !isMenuOpen, 'block': isMenuOpen }">
 
 					<RouterLink to="/users/homepage"
-						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
-						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold" v-if="isLoggedIn">
+						class="text-grey6-dark dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-100"
+						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold" v-if="isLoggedIn">
 						Home
 					</RouterLink>
 					
 					<RouterLink to="/"
-						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
-						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
+						class="text-grey6-dark dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-100"
+						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold">
 						API Docs
 					</RouterLink>
 					
 					<!-- Login/Register links (shown when not logged in) -->
 					<RouterLink to="/users/login"
-						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
-						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold"
+						class="text-grey6-dark dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-100"
+						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold"
 						v-if="!isLoggedIn">
 						Login
 					</RouterLink>
 					<RouterLink to="/users/register"
-						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
-						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold"
+						class="text-grey6-dark dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-100"
+						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold"
 						v-if="!isLoggedIn">
 						Register
 					</RouterLink>
 
 					<!-- Dark Mode Toggle -->
 					<button @click="toggleDarkMode"
-						class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600">
-						<i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" class="icon-size"></i>
+						class="text-blue-light dark:text-blue-dark p-2">
+						<i :class="isDarkMode ? 'bx bxs-sun' : 'bx bxs-moon'" class="icon-size"></i>
 					</button>
 
 					<!-- Logout (shown when logged in) -->
@@ -62,37 +62,37 @@
 				</nav>
 			</div>
 
-			<!-- Mobile Navigation Links (shown when menu is open) -->
-			<div class="md:hidden bg-gray-800 dark:bg-gray-900 flex flex-col items-center space-y-4 py-4"
+			<!-- Navigation Links (mobile) -->
+			<div class="md:hidden flex flex-col items-center space-y-4 py-4 text-black-dark dark:text-tertiary-dark"
 				v-if="isMenuOpen">
 
 				<RouterLink to="/users/homepage"
-						class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
-						active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold" v-if="isLoggedIn">
+						class="hover:text-white dark:hover:text-gray-100"
+						active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold" v-if="isLoggedIn">
 						Home
 				</RouterLink>
 
-				<RouterLink to="/" class="text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
-					active-class="text-indigo-400 dark:text-indigo-300" exact-active-class="font-bold">
+				<RouterLink to="/" class="hover:text-white dark:hover:text-gray-100"
+					active-class="text-blue-light dark:text-blue-dark" exact-active-class="font-bold">
 					API Docs
 				</RouterLink>
 				
 				<!-- Login/Register links (for mobile) -->
 				<RouterLink to="/users/login"
-					class="w-full text-center text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+					class="w-full text-center hover:text-white dark:hover:text-gray-100"
 					v-if="!isLoggedIn">
 					Login
 				</RouterLink>
 				<RouterLink to="/users/register"
-					class="w-full text-center text-gray-300 dark:text-gray-200 hover:text-white dark:hover:text-gray-100"
+					class="w-full text-center hover:text-white dark:hover:text-gray-100"
 					v-if="!isLoggedIn">
 					Register
 				</RouterLink>
 
 				<!-- Dark Mode Toggle (for mobile) -->
 				<button @click="toggleDarkMode"
-					class="text-white dark:text-gray-200 p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600">
-					<i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" class="icon-size"></i>
+					class="text-white dark:text-gray-200 p-2 rounded-lg">
+					<i :class="isDarkMode ? 'bx bxs-sun' : 'bx bxs-moon'" class="icon-size"></i>
 				</button>
 
 				<!-- Logout (for mobile) -->
@@ -104,7 +104,7 @@
 			</div>
 		</header>
 
-		<main class="font-sans p-4 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 mt-16 min-h-screen">
+		<main class="font-sfpro p-4 bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100 min-h-screen">
 			<RouterView />
 		</main>
 	</div>

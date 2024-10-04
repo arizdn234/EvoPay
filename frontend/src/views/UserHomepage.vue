@@ -1,67 +1,90 @@
 <template>
 	<div class="user-homepage p-5 max-w-4xl mx-auto mt-16">
-		<h1 class="text-2xl font-bold mb-5">Hello, <span class="font-bold transition-all duration-300 ease-in-out cursor-pointer text-blue-700 hover:text-blue-900">{{ userName }}</span></h1>
+		<h1 class="text-2xl font-bold mb-5">Hello, <span
+				class="font-bold cursor-pointer text-blue-light hover:text-blue-dark">{{
+					userName }}</span></h1>
 		<p class="mt-5 text-sm italic">Welcome to your homepage!</p>
 
 		<p v-if="balance !== null"
-			class="text-2xl text-blue-500 font-bold pt-2 rounded transition-all duration-300 ease-in-out hover:bg-blue-400 hover:px-2 hover:text-white">
+			class="text-2xl text-blue-light hover:text-blue-dark font-semibold pt-2 rounded hover:bg-blue-light hover:px-2 hover:dark:text-white hover:text-black">
 			<strong class="text-gray-900 dark:text-white">Balance:</strong>
 			{{ `${balance.currency} ${balance.current_balance.toFixed(2)}` }}
 		</p>
 
 
 		<!-- Conditionally display a message if no token is found -->
-		<p v-if="cookieNotFound" class="text-red-500 mt-4">Cookie not found. Please log in.</p>
+		<p v-if="cookieNotFound" class="text-red-light dark:text-red-dark mt-4">Cookie not found. Please log in.</p>
 
 		<!-- Display additional user information if available -->
-		<div v-if="userData" class="transition-all duration-300 ease-in-out py-2 px-4 border rounded-lg bg-gray-300 dark:bg-gray-900 mt-5 hover:py-4">
+		<div v-if="userData"
+			class="py-2 px-4 border border-secondary-light dark:border-grey4-light rounded-lg bg-transparent mt-5 hover:py-4">
 			<h2 class="text-lg font-semibold underline mb-2">Your Account information</h2>
-			<p><strong>Email:</strong> <span class="text-green-500">{{ userData.email }}</span></p>
-			<p><strong>Registered At:</strong> <span class="text-blue-400">{{ formatDate(userData.created_at) }}</span></p>
+			<p><strong>Email:</strong> <span class="text-mint-light dark:text-mint-dark">{{ userData.email }}</span></p>
+			<p><strong>Registered At:</strong> <span class="text-blue-light dark:text-blue-dark">{{
+				formatDate(userData.created_at) }}</span></p>
 			<p>
 				<strong>Email Verified Status: </strong>
 				<!-- Conditionally render verified or not verified -->
-				<span v-if="userData.email_verified" class="text-green-400">Email Verified</span>
-				<span v-else class="text-yellow-400">Email Not Verified</span>
+				<span v-if="userData.email_verified" class="text-green-light dark:text-green-dark">Email Verified</span>
+				<span v-else class="text-red-light dark:text-red-dark">Email Not Verified</span>
 			</p>
 		</div>
 
 		<!-- Feature buttons section -->
-		<div class="feature-buttons font-sfprotext grid grid-cols-2 sm:grid-cols-3 gap-4 mt-10 transition-all duration-300 ease-in-out hover:px-2">
+		<div
+			class="feature-buttons font-sfprotext grid grid-cols-3 sm:grid-cols-4 gap-4 mt-10">
 			<!-- Button 1 -->
 			<button @click="handleFeature1"
-				class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 hover:py-4 transition-all duration-300 ease-in-out">
-				Deposit
+				class="flex flex-col items-center text-white font-bold py-4 px-4 scale-100 hover:scale-105">
+				<div class="bg-blue-light dark:bg-blue-dark rounded-full p-2 mb-2">
+					<i class='bx bx-wallet text-2xl icon-size text-white'></i>
+				</div>
+				<span class="text-blue-light dark:text-blue-dark hover:scale-105">Deposit</span>
 			</button>
 
 			<!-- Button 2 -->
 			<button @click="handleFeature2"
-				class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 hover:py-4 transition-all duration-300 ease-in-out">
-				Withdraw
+				class="flex flex-col items-center text-white font-bold py-4 px-4 scale-100 hover:scale-105">
+				<div class="bg-blue-light dark:bg-blue-dark rounded-full p-2 mb-2">
+					<i class='bx bx-money-withdraw text-2xl icon-size text-white'></i>
+				</div>
+				<span class="text-blue-light dark:text-blue-dark hover:scale-105">Withdraw</span>
 			</button>
 
 			<!-- Button 3 -->
 			<button @click="handleFeature3"
-				class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 hover:py-4 transition-all duration-300 ease-in-out">
-				Your History
+				class="flex flex-col items-center text-white font-bold py-4 px-4 scale-100 hover:scale-105">
+				<div class="bg-blue-light dark:bg-blue-dark rounded-full p-2 mb-2">
+					<i class='bx bx-history text-2xl icon-size text-white'></i>
+				</div>
+				<span class="text-blue-light dark:text-blue-dark hover:scale-105">Your History</span>
 			</button>
 
 			<!-- Button 4 -->
 			<button @click="handleFeature4"
-				class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 hover:py-4 transition-all duration-300 ease-in-out">
-				Pay Amazon
+				class="flex flex-col items-center text-white font-bold py-4 px-4 scale-100 hover:scale-105">
+				<div class="bg-blue-light dark:bg-blue-dark rounded-full p-2 mb-2">
+					<i class='bx bx-cart text-2xl icon-size text-white'></i>
+				</div>
+				<span class="text-blue-light dark:text-blue-dark hover:scale-105">Pay Amazon</span>
 			</button>
 
 			<!-- Button 5 -->
 			<button @click="handleFeature5"
-				class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 hover:py-4 transition-all duration-300 ease-in-out">
-				Bank Transfer
+				class="flex flex-col items-center text-white font-bold py-4 px-4 scale-100 hover:scale-105">
+				<div class="bg-blue-light dark:bg-blue-dark rounded-full p-2 mb-2">
+					<i class='bx bx-transfer-alt text-2xl icon-size text-white'></i>
+				</div>
+				<span class="text-blue-light dark:text-blue-dark hover:scale-105">Bank Transfer</span>
 			</button>
 
 			<!-- Button 6 -->
 			<button @click="handleFeature6"
-				class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 hover:py-4 transition-all duration-300 ease-in-out">
-				QevoPay
+				class="flex flex-col items-center text-white font-bold py-4 px-4 scale-100 hover:scale-105">
+				<div class="bg-blue-light dark:bg-blue-dark rounded-full p-2 mb-2">
+					<i class='bx bx-credit-card text-2xl icon-size text-white'></i>
+				</div>
+				<span class="text-blue-light dark:text-blue-dark hover:scale-105">QevoPay</span>
 			</button>
 		</div>
 	</div>
@@ -142,3 +165,14 @@ const handleFeature6 = () => {
 	console.log('Feature 6 clicked');
 };
 </script>
+
+<style scoped>
+.icon-size {
+	width: 2.4rem;
+	height: 2.4rem;
+	font-size: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+</style>

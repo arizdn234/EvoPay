@@ -7,13 +7,13 @@
 		<div class="flex space-x-4 mb-5">
 			<button 
 				@click="toggleRoutes('user')" 
-				:class="{'bg-indigo-700 text-white scale-105': currentView === 'user', 'border border-indigo-400 scale-100': currentView !== 'user'}" 
+				:class="{'bg-blue-light dark:bg-blue-dark text-white scale-105': currentView === 'user', 'border border-blue-dark scale-100': currentView !== 'user'}" 
 				class="px-4 py-2 w-40 rounded-lg transition duration-150 ease-in-out">
 				User Endpoints
 			</button>
 			<button 
 				@click="toggleRoutes('admin')" 
-				:class="{'bg-indigo-700 text-white scale-105': currentView === 'admin', 'border border-indigo-400 scale-100': currentView !== 'admin'}" 
+				:class="{'bg-blue-light dark:bg-blue-dark text-white scale-105': currentView === 'admin', 'border border-blue-dark scale-100': currentView !== 'admin'}" 
 				class="px-4 py-2 w-40 rounded-lg transition duration-150 ease-in-out">
 				Admin Endpoints
 			</button>

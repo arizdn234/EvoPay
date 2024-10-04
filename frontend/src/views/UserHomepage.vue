@@ -27,7 +27,7 @@
 		</div>
 
 		<!-- Feature buttons section -->
-		<div class="feature-buttons grid grid-cols-2 sm:grid-cols-3 gap-4 mt-10 transition-all duration-300 ease-in-out hover:px-2">
+		<div class="feature-buttons font-sfprotext grid grid-cols-2 sm:grid-cols-3 gap-4 mt-10 transition-all duration-300 ease-in-out hover:px-2">
 			<!-- Button 1 -->
 			<button @click="handleFeature1"
 				class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 hover:py-4 transition-all duration-300 ease-in-out">

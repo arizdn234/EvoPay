@@ -1,52 +1,57 @@
 <template>
-    <div class="login bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 max-w-md mx-auto mt-16">
-        <h1 class="text-3xl font-semibold mb-8 text-center text-gray-800 dark:text-gray-200">Login</h1>
-        <form @submit.prevent="handleSubmit" class="space-y-6">
-            <div class="relative space-y-2">
-                <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Email</label>
-                <div class="relative">
-                    <input type="email" name="email" id="email" v-model="email" autocomplete="email" required
-                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
-                        placeholder="Enter your email" />
-                    <i
-                        class="fas fa-envelope absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"></i>
+    <div style="min-height: 100vh; display: grid; place-items: center;">
+        <div class="login bg-white dark:bg-gray-900 shadow-lg rounded-lg p-8 mx-auto">
+            <h1 class="text-3xl font-semibold mb-2 text-center text-gray-800 dark:text-gray-200">Login</h1>
+            <p class="mb-4 px-16 text-center" style="color: rgba(36, 36, 39, .700);">Welcome to <span
+                class="font-bold">EvoPay</span>, login to continue</p>
+
+            <form @submit.prevent="handleSubmit" class="space-y-6">
+                <div class="relative space-y-2">
+                    <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Email</label>
+                    <div class="relative">
+                        <i class='bx bx-user bx-sm absolute pt-3 pl-3 text-blue-light dark:text-blue-dark'></i>
+                        <input type="email" name="email" id="email" v-model="email" autocomplete="email" required
+                            class="w-full px-5 py-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
+                            placeholder="Enter your email" />
+                        
+                    </div>
                 </div>
-            </div>
 
-            <div class="relative space-y-2">
-                <label for="password"
-                    class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Password</label>
-                <div class="relative">
-                    <input type="password" name="password" id="password" v-model="password" required
-                        class="mb-2 w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
-                        placeholder="Enter your password" />
-                    <i
-                        class="fa-solid fa-lock absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"></i>
+                <div class="relative space-y-2">
+                    <label for="password"
+                        class="block text-gray-700 dark:text-gray-300 text-sm font-medium">Password</label>
+                    <div class="relative">
+                        <i class='bx bx-lock-alt bx-sm absolute pt-3 pl-3 text-blue-light dark:text-blue-dark'></i>
+                
+                        <input type="password" name="password" id="password" v-model="password" required
+                            class="mb-2 w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 shadow-sm focus:border-blue-500 dark:focus:border-blue-400 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 pl-10"
+                            placeholder="Enter your password" />
+                    </div>
                 </div>
-            </div>
-            <a href="/users/reset-password"
-                class="mt-4 text-indigo-700 dark:text-indigo-600 hover:text-indigo-400 dark:hover:text-indigo-400 font-semibold rounded-lg transition duration-150 ease-in-out text-right">
-                Forgot Password?
-            </a>
+                <a href="/users/reset-password"
+                    class="mt-4 text-indigo-700 dark:text-indigo-600 hover:text-indigo-400 dark:hover:text-indigo-400 font-semibold rounded-lg transition duration-150 ease-in-out text-right">
+                    Forgot Password?
+                </a>
 
-            <div v-if="error" class="error-message text-red-500 text-center mt-4">
-                {{ error }}
-            </div>
+                <div v-if="error" class="error-message text-red-500 text-center mt-4">
+                    {{ error }}
+                </div>
 
-            <div class="flex items-center justify-center">
-                <button type="submit"
-                    class="bg-indigo-700 dark:bg-indigo-600 hover:bg-indigo-400 dark:hover:bg-indigo-400 text-white text-center font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-opacity-50 flex w-full flex items-center justify-center">
-                    Login
-                </button>
-            </div>
+                <div class="flex items-center justify-center">
+                    <button type="submit"
+                        class="bg-indigo-700 dark:bg-indigo-600 hover:bg-indigo-400 dark:hover:bg-indigo-400 text-white text-center font-semibold py-2 px-4 rounded-lg transition duration-150 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-opacity-50 flex w-full flex items-center justify-center">
+                        Login
+                    </button>
+                </div>
 
-            <div class="flex items-center justify-between">
-                <span>Don't have an account?<a href="/users/register"
-                        class="text-indigo-700 dark:text-indigo-600 hover:text-indigo-400 dark:hover:text-indigo-400 font-semibold rounded-lg transition duration-150 ease-in-out">
-                        Register here
-                    </a></span>
-            </div>
-        </form>
+                <div class="flex items-center justify-between">
+                    <span>Don't have an account?<a href="/users/register"
+                            class="text-indigo-700 dark:text-indigo-600 hover:text-indigo-400 dark:hover:text-indigo-400 font-semibold rounded-lg transition duration-150 ease-in-out">
+                            Register here
+                        </a></span>
+                </div>
+            </form>
+        </div>
     </div>
 </template>
 

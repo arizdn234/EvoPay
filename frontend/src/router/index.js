@@ -5,6 +5,7 @@ import RegisterView from '@/views/RegisterView.vue'
 import VerifyEmailView from '@/views/VerifyEmailView.vue'
 import ResetPasswordView from '@/views/ResetPasswordView.vue'
 import UserHomepage from '@/views/UserHomepage.vue'
+import UserProfile from '@/views/UserProfile.vue'
 
 
 const router = createRouter({
@@ -49,6 +50,11 @@ const router = createRouter({
       path: '/users/homepage',
       name: 'user-homepage',
       component: UserHomepage
+    },
+    {
+      path: '/users/me',
+      name: 'user-profile',
+      component: UserProfile
     }
   ]
 })

@@ -31,11 +31,13 @@
 		</div>
 
 		<!-- Promotional Banner -->
-		<div class="promotional-banner mt-8 bg-blue-light dark:bg-blue-dark text-black dark:text-white rounded-lg p-5 shadow-lg flex justify-between items-center">
+		<div
+			class="promotional-banner mt-8 bg-blue-light dark:bg-blue-dark text-black dark:text-white rounded-lg p-5 shadow-lg flex justify-between items-center">
 			<!-- Banner text -->
 			<div>
 				<h2 class="text-xl font-bold">Get 20% Cashback on Your Next Transaction!</h2>
-				<p class="text-sm mt-2">Use code <span class="font-semibold">CASHBACK20</span> at checkout to enjoy this limited time offer.</p>
+				<p class="text-sm mt-2">Use code <span class="font-semibold">CASHBACK20</span> at checkout to enjoy this
+					limited time offer.</p>
 				<p class="text-xs mt-1 italic">*Offer valid until October 31st, 2024</p>
 			</div>
 			<!-- Banner image -->
@@ -45,8 +47,7 @@
 		</div>
 
 		<!-- Feature buttons section -->
-		<div
-			class="feature-buttons font-sfprotext grid grid-cols-3 sm:grid-cols-4 gap-4 mt-10">
+		<div class="feature-buttons font-sfprotext grid grid-cols-3 sm:grid-cols-4 gap-4 mt-10">
 			<!-- Button 1 -->
 			<button @click="handleFeature1"
 				class="flex flex-col items-center text-white font-bold py-4 px-4 scale-100 hover:scale-105">
@@ -103,10 +104,10 @@
 		</div>
 
 		<!-- Dashboard Graph Placeholder -->
-		<div class="dashboard-graph mt-10 p-5 border border-gray-300 rounded-lg bg-white shadow-md">
+		<div class="dashboard-graph mt-10 p-5 border border-gray-300 rounded-lg bg-transparent shadow-md">
 			<h2 class="text-lg font-bold mb-5">Dashboard Overview</h2>
 			<!-- Placeholder for Graph -->
-			<div class="h-64 bg-gray-100 flex justify-center items-center rounded-lg">
+			<div class="h-64 bg-grey-light dark:bg-grey-dark flex justify-center items-center rounded-lg">
 				<p class="text-gray-500">[Graph displaying user transaction statistics]</p>
 			</div>
 		</div>
@@ -117,19 +118,23 @@
 			<ul class="mt-4">
 				<li class="mb-3">
 					<strong>1. How do I deposit money?</strong>
-					<p class="text-sm text-gray-600">You can deposit money by clicking the "Deposit" button and following the instructions to link your bank account or credit card.</p>
+					<p class="text-sm text-grey-light dark:text-grey-dark">You can deposit money by clicking the "Deposit" button and
+						following the instructions to link your bank account or credit card.</p>
 				</li>
 				<li class="mb-3">
 					<strong>2. Is my information secure?</strong>
-					<p class="text-sm text-gray-600">Yes, we use top-tier encryption methods to protect your data. Your information is stored securely and is never shared without your consent.</p>
+					<p class="text-sm text-grey-light dark:text-grey-dark">Yes, we use top-tier encryption methods to protect your data. Your
+						information is stored securely and is never shared without your consent.</p>
 				</li>
 				<li class="mb-3">
 					<strong>3. What is the maximum withdrawal limit?</strong>
-					<p class="text-sm text-gray-600">The maximum withdrawal limit depends on your account type. For verified users, the limit is higher. You can find more details in your account settings.</p>
+					<p class="text-sm text-grey-light dark:text-grey-dark">The maximum withdrawal limit depends on your account type. For
+						verified users, the limit is higher. You can find more details in your account settings.</p>
 				</li>
 				<li class="mb-3">
 					<strong>4. How do I contact customer support?</strong>
-					<p class="text-sm text-gray-600">You can contact our 24/7 support team by clicking on the "Help & Support" button or by emailing us at support@qevopay.com.</p>
+					<p class="text-sm text-grey-light dark:text-grey-dark">You can contact our 24/7 support team by clicking on the "Help &
+						Support" button or by emailing us at support@evopay.com.</p>
 				</li>
 			</ul>
 		</div>
@@ -138,8 +143,7 @@
 		<div class="help-support-section mt-10">
 			<h2 class="text-lg font-bold underline">Help & Support</h2>
 			<p class="mt-4 text-sm">If you need further assistance, feel free to reach out to our support team.</p>
-			<button @click="contactSupport"
-				class="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+			<button @click="contactSupport" class="mt-4 py-2 px-4 bg-blue-light text-white rounded-lg hover:bg-blue-dark">
 				Contact Support
 			</button>
 		</div>

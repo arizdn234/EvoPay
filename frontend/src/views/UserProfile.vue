@@ -47,7 +47,8 @@
                                 class="text-grey2-light dark:text-grey2-dark">{{ formatDate(transaction.created_at) }}
                             </span>
                         </div>
-                        <p class="font-bold" :class="transaction.amount > 0 ? 'text-green-600' : 'text-red-600'">
+                        <p class="font-bold"
+                            :class="transaction.amount > 0 ? 'text-green-light dark:text-green-dark' : 'text-red-light dark:text-red-dark'">
                             {{ transaction.amount > 0 ? '+' : '' }}{{ transaction.currency }} {{
                                 transaction.amount.toFixed(2) }}
                         </p>

@@ -145,7 +145,7 @@
 					<div>
 						<h3 class="font-semibold mb-4">Contact Us</h3>
 						<p class="text-gray-400">
-							Email: <a href="mailto:support@qevopay.com"
+							Email: <a href="mailto:support@evopay.com"
 								class="text-blue-400 hover:underline">support@evopay.com</a>
 						</p>
 						<p class="text-gray-400">Phone: +62 815 2947 4830</p>

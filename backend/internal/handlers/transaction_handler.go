@@ -56,6 +56,21 @@ func (h *TransactionHandler) GetTransactionByID(c *fiber.Ctx) error {
 	return c.JSON(transaction)
 }
 
+// GetTransactionsByUserID retrieves transactions by userID
+func (h *TransactionHandler) GetTransactionsByUserID(c *fiber.Ctx) error {
+	userID, err := strconv.Atoi(c.Params("userID"))
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid userID"})
+	}
+
+	transactions, err := h.repo.FindByUserID(uint(userID))
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to retrieve transactions"})
+	}
+
+	return c.JSON(transactions)
+}
+
 // UpdateTransaction updates a transaction
 func (h *TransactionHandler) UpdateTransaction(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))

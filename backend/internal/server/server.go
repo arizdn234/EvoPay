@@ -67,6 +67,7 @@ func RunServer(app *fiber.App, db *gorm.DB, port string) *fiber.App {
 	transactionRoute.Use(middleware.RequireAuth())
 	transactionRoute.Post("/", transactionHandler.CreateTransaction)
 	transactionRoute.Get("/", transactionHandler.GetAllTransactions)
+	transactionRoute.Get("/user/:userID", transactionHandler.GetTransactionsByUserID)
 	transactionRoute.Get("/:id", transactionHandler.GetTransactionByID)
 	transactionRoute.Put("/:id", transactionHandler.UpdateTransaction)
 

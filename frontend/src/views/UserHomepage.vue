@@ -38,7 +38,7 @@
 				<h2 class="text-xl font-bold">Get 20% Cashback on Your Next Transaction!</h2>
 				<p class="text-sm mt-2">Use code <span class="font-semibold">CASHBACK20</span> at checkout to enjoy this
 					limited time offer.</p>
-				<p class="text-xs mt-1 italic">*Offer valid until October 31st, 2024</p>
+				<p class="text-xs mt-1 italic">*Offer valid until {{ formatDate(new Date()) }}</p>
 			</div>
 			<!-- Banner image -->
 			<div>

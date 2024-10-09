@@ -28,7 +28,7 @@
         <!-- Edit Profile Button -->
         <div v-if="userData" class="mt-6">
             <button @click="editProfile"
-                class="bg-blue-light hover:bg-blue-dark text-white font-bold py-2 px-4 rounded">
+                class="bg-blue-light dark:bg-blue-dark hover:filter hover:brightness-125 text-white font-bold py-2 px-4 rounded-lg">
                 Edit Profile
             </button>
         </div>
@@ -63,13 +63,13 @@
             <ul>
                 <li class="mb-4">
                     <button @click="changePassword"
-                        class="bg-red-light hover:bg-red-dark text-white font-regular py-2 px-4 rounded">
+                        class="bg-red-light dark:bg-red-dark hover:filter hover:brightness-125 text-white font-regular py-2 px-4 rounded-lg">
                         Change Password
                     </button>
                 </li>
                 <li class="mb-4">
                     <button @click="deleteAccount"
-                        class="bg-red-light hover:bg-red-dark text-white font-regular py-2 px-4 rounded">
+                        class="bg-red-light dark:bg-red-dark hover:filter hover:brightness-125 text-white font-regular py-2 px-4 rounded-lg">
                         Delete Account
                     </button>
                 </li>
